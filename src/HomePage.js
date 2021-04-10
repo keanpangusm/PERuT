@@ -6,44 +6,51 @@ import {
   Text,
   View,
   TouchableOpacity,
+  SafeAreaView,
+  StatusBar,
 } from "react-native";
 
 const homePage = () => {
   return (
-    <View style={{ flex: 1 }}>
-      <View style={{ flex: 20 }} />
-      <View style={{ flex: 60 }}>
-        <View style={{ flex: 1 }}>
-          <Text style={[styles.bigTitle, { flex: 1 }]}>
-            Selamat Datang{"\n"}ke PERuT!
-          </Text>
-          <Text style={styles.smallDescription}>
-            Sila pilih penggunaan anda
-          </Text>
-          <View style={{ flex: 2 }}>
-            <LoginAndSignupButton />
+    <SafeAreaView style={{ flex: 1 }}>
+      <StatusBar />
+      <View style={{ flex: 1 }}>
+        <View style={{ flex: 20 }} />
+        <View style={{ flex: 60 }}>
+          <View style={{ flex: 1 }}>
+            <Text style={[styles.bigTitle, { flex: 1 }]}>
+              Selamat Datang{"\n"}ke PERuT!
+            </Text>
+            <Text style={styles.smallDescription}>
+              Sila pilih penggunaan anda
+            </Text>
+            <View style={{ flex: 2 }}>
+              <LoginAndSignupButton />
+            </View>
+          </View>
+        </View>
+        <View style={{ flex: 20 }}>
+          <View style={{ position: "absolute", bottom: 30 }}>
+            <Text>
+              {
+                "Applikasi ini disediakan oleh pihak My Gut-Brain Center Hospital Universiti Sains Malaysia, Kubang Kerian "
+              }
+            </Text>
+            <TouchableOpacity
+              onPress={() => {
+                Linking.openURL("https://www.mygutbraincenter.com");
+              }}
+            >
+              <Text
+                style={{ textDecorationLine: "underline", color: "#007bff" }}
+              >
+                https://www.mygutbraincenter.com
+              </Text>
+            </TouchableOpacity>
           </View>
         </View>
       </View>
-      <View style={{ flex: 20 }}>
-        <View style={{ position: "absolute", bottom: 30 }}>
-          <Text>
-            {
-              "Applikasi ini disediakan oleh pihak My Gut-Brain Center Hospital Universiti Sains Malaysia, Kubang Kerian "
-            }
-          </Text>
-          <TouchableOpacity
-            onPress={() => {
-              Linking.openURL("https://www.mygutbraincenter.com");
-            }}
-          >
-            <Text style={{ textDecorationLine: "underline", color: "#007bff" }}>
-              https://www.mygutbraincenter.com
-            </Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-    </View>
+    </SafeAreaView>
   );
 };
 
