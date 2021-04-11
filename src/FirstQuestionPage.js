@@ -43,7 +43,7 @@ const firstQuestionPage = () => {
                 }}
               />
             </View>
-            <View style={{ alignItems: "center", marginTop: 10 }}>
+            <View style={{ alignItems: "center", marginTop: 5 }}>
               <TouchableOpacity
                 style={[styles.buttonStyle, { backgroundColor: "#70D789" }]}
                 /* onPress={() => */
@@ -56,16 +56,16 @@ const firstQuestionPage = () => {
             <Text style={{ fontSize: 20, marginTop: 50, textAlign: "center" }}>
               Jika tidak, sila tekan butang bawah untuk menjawab soal selidik
             </Text>
-          </View>
-          <View style={{ alignItems: "center", marginTop: 20 }}>
-            <TouchableOpacity
-              style={[styles.buttonStyle, { backgroundColor: "#70D789" }]}
-              /* onPress={() => */
-            >
-              <Text style={[styles.buttonText, { color: "white" }]}>
-                Jawab soal selidik
-              </Text>
-            </TouchableOpacity>
+            <View style={{ alignItems: "center", marginTop: 20 }}>
+              <TouchableOpacity
+                style={[styles.buttonStyle, { backgroundColor: "#70D789" }]}
+                /* onPress={() => */
+              >
+                <Text style={[styles.buttonText, { color: "white" }]}>
+                  Jawab soal selidik
+                </Text>
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
       </View>

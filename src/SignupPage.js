@@ -16,7 +16,10 @@ const signupPage = () => {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <StatusBar />
-      <ScrollView style={{ flex: 1, paddingLeft: 30, paddingRight: 30 }}>
+      <ScrollView
+        style={{ flex: 1, paddingLeft: 30, paddingRight: 30 }}
+        showsVerticalScrollIndicator={false}
+      >
         <View style={{ flex: 1, marginTop: 40 }}>
           <Text style={styles.bigTitle}>
             Daftar untuk mulakan{"\n"}terapi anda

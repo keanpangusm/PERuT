@@ -8,6 +8,9 @@ import signupPage from "./src/SignupPage";
 import homePage from "./src/HomePage";
 import greetingPage from "./src/GreetingPage";
 import firstQuestionPage from "./src/FirstQuestionPage";
+import thirdQuestionPage from "./src/ThirdQuestionPage";
+import guidePage from "./src/GuidePage";
+import setReminderPage from "./src/SetReminderPage";
 
 const app = () => {
   return (
@@ -34,9 +37,24 @@ const app = () => {
             component={greetingPage}
             options={{ headerShown: false }}
           /> */}
-          <Stack.Screen
+          {/* <Stack.Screen
             name="firstQuestionPage"
             component={firstQuestionPage}
+            options={{ headerShown: false }}
+          /> */}
+          {/* <Stack.Screen
+            name="thirdQuestionPage"
+            component={thirdQuestionPage}
+            options={{ headerShown: false }}
+          /> */}
+          {/* <Stack.Screen
+            name="guidePage"
+            component={guidePage}
+            options={{ headerShown: false }}
+          /> */}
+          <Stack.Screen
+            name="setReminderPage"
+            component={setReminderPage}
             options={{ headerShown: false }}
           />
         </Stack.Navigator>
