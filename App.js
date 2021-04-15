@@ -52,11 +52,11 @@ const app = () => {
             component={guidePage}
             options={{ headerShown: false }}
           /> */}
-          {/* <Stack.Screen
+          <Stack.Screen
             name="setReminderPage"
             component={setReminderPage}
             options={{ headerShown: false }}
-          /> */}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>
