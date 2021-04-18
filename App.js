@@ -11,6 +11,11 @@ import firstQuestionPage from "./src/FirstQuestionPage";
 import thirdQuestionPage from "./src/ThirdQuestionPage";
 import guidePage from "./src/GuidePage";
 import setReminderPage from "./src/SetReminderPage";
+import mulaProgramPage from "./src/MulaProgramPage";
+import introPage from "./src/IntroPage";
+import audioPage from "./src/AudioPage";
+import feedBackPage from "./src/FeedBackPage";
+import mainMenuPage from "./src/MainMenuPage";
 
 const app = () => {
   return (
@@ -52,9 +57,34 @@ const app = () => {
             component={guidePage}
             options={{ headerShown: false }}
           /> */}
-          <Stack.Screen
+          {/* <Stack.Screen
             name="setReminderPage"
             component={setReminderPage}
+            options={{ headerShown: false }}
+          /> */}
+          {/* <Stack.Screen
+            name="mulaProgramPage"
+            component={mulaProgramPage}
+            options={{ headerShown: false }}
+          /> */}
+          {/* <Stack.Screen
+            name="introPage"
+            component={introPage}
+            options={{ headerShown: false }}
+          /> */}
+          {/* <Stack.Screen
+            name="audioPage"
+            component={audioPage}
+            options={{ headerShown: false }}
+          /> */}
+          {/* <Stack.Screen
+            name="feedBackPage"
+            component={feedBackPage}
+            options={{ headerShown: false }}
+          /> */}
+          <Stack.Screen
+            name="mainMenuPage"
+            component={mainMenuPage}
             options={{ headerShown: false }}
           />
         </Stack.Navigator>

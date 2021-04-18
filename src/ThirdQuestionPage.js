@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   SafeAreaView,
   StatusBar,
+  ScrollView,
 } from "react-native";
 import ProgressBar from "react-native-progress/Bar";
 
@@ -14,8 +15,15 @@ const thirdQuestionPage = () => {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <StatusBar />
-      <View style={{ flex: 1 }}>
-        <View style={{ marginTop: 30, marginLeft: 40, marginRight: 40 }}>
+      <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1 }}>
+        <View
+          style={{
+            marginTop: 30,
+            marginLeft: 40,
+            marginRight: 40,
+            marginBottom: 40,
+          }}
+        >
           <View style={{ alignItems: "center" }}>
             <ProgressBar progress={1} width={275} color={"#1DAD58"} />
           </View>
@@ -37,7 +45,7 @@ const thirdQuestionPage = () => {
             </View>
           </View>
         </View>
-      </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };

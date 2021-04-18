@@ -37,7 +37,6 @@ const setReminderPage = () => {
     setTempHour(hour);
     setTempMinute(minute);
     setTempAmOrPm(amOrpm);
-    console.log("2." + tempHour + ":" + tempMinute + " " + tempAmOrPm);
   };
 
   return (

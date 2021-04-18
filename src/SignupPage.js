@@ -17,7 +17,7 @@ const signupPage = () => {
     <SafeAreaView style={{ flex: 1 }}>
       <StatusBar />
       <ScrollView
-        style={{ flex: 1, paddingLeft: 30, paddingRight: 30 }}
+        style={{ flex: 1, paddingLeft: 30, paddingRight: 30, marginBottom: 20 }}
         showsVerticalScrollIndicator={false}
       >
         <View style={{ flex: 1, marginTop: 40 }}>
