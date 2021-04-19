@@ -11,7 +11,7 @@ import {
 } from "react-native";
 import { Input } from "react-native-elements";
 
-const feedBackPage = () => {
+const feedBackPage = ({ navigation }) => {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <StatusBar />
@@ -54,7 +54,7 @@ const feedBackPage = () => {
           <View style={{ alignItems: "center", marginTop: 30 }}>
             <TouchableOpacity
               style={[styles.buttonStyle, { backgroundColor: "#70D789" }]}
-              /* onPress={() => */
+              onPress={() => navigation.navigate("mainMenuPage")}
             >
               <Text style={[styles.buttonText, { color: "white" }]}>
                 Teruskan

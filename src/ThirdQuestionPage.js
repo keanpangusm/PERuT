@@ -11,7 +11,7 @@ import {
 } from "react-native";
 import ProgressBar from "react-native-progress/Bar";
 
-const thirdQuestionPage = () => {
+const thirdQuestionPage = ({ navigation }) => {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <StatusBar />
@@ -38,7 +38,7 @@ const thirdQuestionPage = () => {
             <View style={{ alignItems: "center", marginTop: 35 }}>
               <TouchableOpacity
                 style={[styles.buttonStyle, { backgroundColor: "#70D789" }]}
-                /* onPress={() => */
+                onPress={() => navigation.navigate("guidePage")}
               >
                 <Text style={[styles.buttonText, { color: "white" }]}>Ok!</Text>
               </TouchableOpacity>

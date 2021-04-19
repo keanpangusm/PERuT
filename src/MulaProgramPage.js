@@ -10,7 +10,7 @@ import {
   ScrollView,
 } from "react-native";
 
-const mulaProgramPage = () => {
+const mulaProgramPage = ({ navigation }) => {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <StatusBar />
@@ -49,7 +49,7 @@ const mulaProgramPage = () => {
           <View style={{ alignItems: "center", marginTop: 20 }}>
             <TouchableOpacity
               style={[styles.buttonStyle, { backgroundColor: "#70D789" }]}
-              /* onPress={() => */
+              onPress={() => navigation.navigate("introPage")}
             >
               <Text style={[styles.buttonText, { color: "white" }]}>
                 1. Selamat datang! Pendahuluan
@@ -59,7 +59,7 @@ const mulaProgramPage = () => {
           <View style={{ alignItems: "center", marginTop: 15 }}>
             <TouchableOpacity
               style={[styles.buttonStyle, { backgroundColor: "#70D789" }]}
-              /* onPress={() => */
+              onPress={() => navigation.navigate("audioPage")}
             >
               <Text style={[styles.buttonText, { color: "white" }]}>
                 2. Audio Pengurangan Kembung Perut

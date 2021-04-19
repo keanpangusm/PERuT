@@ -26,9 +26,15 @@ const mainMenuPage = () => {
         >
           <View style={{ flexDirection: "row" }}>
             <TouchableOpacity>
-              <Image source={require("../assets/chat.png")} />
+              <Image
+                source={require("../assets/chat.png")}
+                style={{ width: 50, height: 50 }}
+              />
             </TouchableOpacity>
-            <Image source={require("../assets/menu.png")} />
+            <Image
+              source={require("../assets/menu.png")}
+              style={{ width: 50, height: 50 }}
+            />
           </View>
         </View>
       </ScrollView>

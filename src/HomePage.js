@@ -9,8 +9,9 @@ import {
   SafeAreaView,
   StatusBar,
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
-const homePage = () => {
+const homePage = ({ navigation }) => {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <StatusBar />
@@ -25,7 +26,7 @@ const homePage = () => {
               Sila pilih penggunaan anda
             </Text>
             <View style={{ flex: 2 }}>
-              <LoginAndSignupButton />
+              <LoginAndSignupButton navigation={{ navigation }} />
             </View>
           </View>
         </View>
@@ -55,11 +56,13 @@ const homePage = () => {
 };
 
 const LoginAndSignupButton = () => {
+  const navigation = useNavigation();
+
   return (
     <View style={{ alignItems: "center", marginTop: 30 }}>
       <TouchableOpacity
         style={[styles.buttonStyle, { backgroundColor: "#E98C53" }]}
-        /* onPress={() => */
+        onPress={() => navigation.navigate("greetingPage")}
       >
         <Text style={[styles.buttonText, { color: "white" }]}>
           Perut Kembung

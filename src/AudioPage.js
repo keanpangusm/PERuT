@@ -13,7 +13,7 @@ import {
 } from "react-native";
 import { Video } from "expo-av";
 
-const audioPage = () => {
+const audioPage = ({ navigation }) => {
   const video = useRef(null);
   const [show, setShow] = useState(false);
   const [status, setStatus] = useState({});
@@ -21,6 +21,7 @@ const audioPage = () => {
   const whenVideoFinish = (playBackStatus) => {
     if (playBackStatus.didJustFinish) {
       console.log("video finished");
+      navigation.navigate("feedBackPage");
     }
   };
 

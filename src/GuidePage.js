@@ -10,7 +10,7 @@ import {
   ScrollView,
 } from "react-native";
 
-const guidePage = () => {
+const guidePage = ({ navigation }) => {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <StatusBar />
@@ -55,7 +55,7 @@ const guidePage = () => {
           >
             <TouchableOpacity
               style={[styles.buttonStyle, { backgroundColor: "#70D789" }]}
-              /* onPress={() => */
+              onPress={() => navigation.navigate("setReminderPage")}
             >
               <Text style={[styles.buttonText, { color: "white" }]}>
                 Teruskan

@@ -12,7 +12,7 @@ import {
 } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 
-const setReminderPage = () => {
+const setReminderPage = ({ navigation }) => {
   const [show, setShow] = useState(false);
   const [time, setTime] = useState("05:30 pm");
   const [hour, setHour] = useState("05");
@@ -286,7 +286,7 @@ const setReminderPage = () => {
           >
             <TouchableOpacity
               style={[styles.buttonStyle, { backgroundColor: "#E98C53" }]}
-              /* onPress={() => */
+              onPress={() => navigation.navigate("mulaProgramPage")}
             >
               <Text style={[styles.buttonText, { color: "white" }]}>
                 Simpan
@@ -294,7 +294,7 @@ const setReminderPage = () => {
             </TouchableOpacity>
             <TouchableOpacity
               style={{ alignItems: "center", marginTop: 20 }}
-              /* onPress={() => */
+              onPress={() => navigation.navigate("mulaProgramPage")}
             >
               <Text style={styles.buttonText}>Abaikan</Text>
             </TouchableOpacity>

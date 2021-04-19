@@ -9,7 +9,7 @@ import {
   StatusBar,
 } from "react-native";
 
-const greetingPage = () => {
+const greetingPage = ({ navigation }) => {
   const name = "Vincent";
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -37,7 +37,7 @@ const greetingPage = () => {
           >
             <TouchableOpacity
               style={[styles.buttonStyle, { backgroundColor: "#E98C53" }]}
-              /* onPress={() => */
+              onPress={() => navigation.navigate("firstQuestionPage")}
             >
               <Text style={[styles.buttonText, { color: "white" }]}>Ok!</Text>
             </TouchableOpacity>

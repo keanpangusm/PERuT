@@ -10,7 +10,7 @@ import {
   ScrollView,
 } from "react-native";
 
-const introPage = () => {
+const introPage = ({ navigation }) => {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <StatusBar />
@@ -85,7 +85,7 @@ const introPage = () => {
           <View style={{ alignItems: "center", marginTop: 40 }}>
             <TouchableOpacity
               style={[styles.buttonStyle, { backgroundColor: "#E98C53" }]}
-              /* onPress={() => */
+              onPress={() => navigation.navigate("audioPage")}
             >
               <Text style={[styles.buttonText, { color: "white" }]}>
                 Teruskan
