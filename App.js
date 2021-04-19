@@ -77,16 +77,16 @@ const app = () => {
             component={audioPage}
             options={{ headerShown: false }}
           /> */}
-          {/* <Stack.Screen
+          <Stack.Screen
             name="feedBackPage"
             component={feedBackPage}
             options={{ headerShown: false }}
-          /> */}
-          <Stack.Screen
+          />
+          {/* <Stack.Screen
             name="mainMenuPage"
             component={mainMenuPage}
             options={{ headerShown: false }}
-          />
+          /> */}
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>
