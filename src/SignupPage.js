@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "react-native-gesture-handler";
+import { firebase } from './firebase/config'
 import { Input } from "react-native-elements";
 import {
   StyleSheet,
@@ -12,7 +13,8 @@ import {
 } from "react-native";
 import CheckBox from "@react-native-community/checkbox";
 
-const signupPage = () => {
+const signupPage = ({navigation}) => {
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <StatusBar />
@@ -34,8 +36,40 @@ const signupPage = () => {
   );
 };
 
-const Details = () => {
+const Details = ({navigation}) => {
+
+  const signUp = () =>{
+    if (isSelected){
+      firebase.auth().createUserWithEmailAndPassword(email, password).then((response) => {
+        const uid = response.user.uid
+        const data = {
+            Id: uid,
+            Email:email,
+            Name:name,
+            Phone:phNo,
+            First:true
+        };
+        const usersRef = firebase.database().ref('Users/'+uid)
+        usersRef.set(data).then(() => {
+            alert("Congratulation! You have registered!")
+          })
+          .catch((error) => {
+              alert(error)
+          });
+        })
+        .catch((error) => {
+            alert(error)
+        });
+    }else{
+      alert('Please accept the terms and conditions!')
+    }
+  }
+
   const [isSelected, setSelection] = useState(false);
+  const [name,setName] = useState('')
+  const [email,setEmail] = useState('')
+  const [phNo,setPhNo] = useState('')
+  const [password,setPassword] = useState('')
 
   return (
     <View>
@@ -43,6 +77,8 @@ const Details = () => {
 
       <Input
         placeholder="Nama"
+        onChangeText={(text) => setName(text)}
+        value={name}
         leftIcon={{
           type: "antdesign",
           name: "user",
@@ -51,6 +87,8 @@ const Details = () => {
 
       <Input
         placeholder="Emel"
+        onChangeText={(text) => setEmail(text)}
+        value={email}
         leftIcon={{
           type: "zocial",
           name: "email",
@@ -59,6 +97,8 @@ const Details = () => {
 
       <Input
         placeholder="Telephone Bimbit"
+        onChangeText={(text) => setPhNo(text)}
+        value={phNo}
         leftIcon={{
           type: "fontawesome",
           name: "phone",
@@ -67,6 +107,8 @@ const Details = () => {
 
       <Input
         placeholder="Password"
+        onChangeText={(text) => setPassword(text)}
+        value={password}
         leftIcon={{
           type: "fontawesome",
           name: "lock",
@@ -99,7 +141,7 @@ const Details = () => {
       </View>
 
       <View style={{ alignItems: "center", marginTop: 25 }}>
-        <TouchableOpacity style={styles.buttonStyle}>
+        <TouchableOpacity style={styles.buttonStyle} onPress={signUp}>
           <Text style={styles.buttonText}>Daftar akaun</Text>
         </TouchableOpacity>
       </View>
