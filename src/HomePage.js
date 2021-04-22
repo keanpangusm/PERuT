@@ -11,7 +11,7 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
-const homePage = ({ navigation }) => {
+const homePage = ({ navigation}) => {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <StatusBar />
@@ -57,7 +57,6 @@ const homePage = ({ navigation }) => {
 
 const LoginAndSignupButton = () => {
   const navigation = useNavigation();
-
   return (
     <View style={{ alignItems: "center", marginTop: 30 }}>
       <TouchableOpacity

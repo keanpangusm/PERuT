@@ -51,7 +51,7 @@ const LoginAndSignupButton = () => {
           styles.buttonStyle,
           { borderColor: "black", borderWidth: 1, marginTop: 20 },
         ]}
-        onPress={() => navigation.navigate("homePage")}
+        onPress={() => navigation.navigate("signinPage")}
       >
         <Text style={styles.buttonText}>Sudah mempunyai akaun?</Text>
       </TouchableOpacity>

@@ -5,6 +5,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import firstPage from "./src/FirstPage";
 import signupPage from "./src/SignupPage";
+import signinPage from "./src/SigninPage";
 import homePage from "./src/HomePage";
 import greetingPage from "./src/GreetingPage";
 import firstQuestionPage from "./src/FirstQuestionPage";
@@ -30,6 +31,11 @@ const app = () => {
           <Stack.Screen
             name="signupPage"
             component={signupPage}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="signinPage"
+            component={signinPage}
             options={{ headerShown: false }}
           />
           <Stack.Screen

@@ -12,8 +12,9 @@ import {
   StatusBar,
 } from "react-native";
 import CheckBox from "@react-native-community/checkbox";
+import { useNavigation } from "@react-navigation/native";
 
-const signupPage = ({navigation}) => {
+const signinPage = ({navigation}) => {
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -36,10 +37,10 @@ const signupPage = ({navigation}) => {
   );
 };
 
-const Details = ({navigation}) => {
-
+const Details = () => {
+  const navigation = useNavigation();
   const signUp = () =>{
-    if (isSelected){
+    if (validation()){
       firebase.auth().createUserWithEmailAndPassword(email, password).then((response) => {
         const uid = response.user.uid
         const data = {
@@ -52,17 +53,41 @@ const Details = ({navigation}) => {
         const usersRef = firebase.database().ref('Users/'+uid)
         usersRef.set(data).then(() => {
             alert("Congratulation! You have registered!")
+            navigation.goBack()
           })
           .catch((error) => {
               alert(error)
           });
-        })
-        .catch((error) => {
-            alert(error)
-        });
-    }else{
-      alert('Please accept the terms and conditions!')
+      })
+      .catch((error) => {
+          alert(error)
+      });
     }
+  }
+
+  const validation = () =>{
+    if (name.length==0){
+      alert('Your name cannot be empty!')
+      return false
+    }
+    let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
+    if (reg.test(email) === false) {
+      alert("Your email is invalid!")
+      return false;
+    }
+    if (phNo.length<10 || phNo.length >11){
+      alert('Your phone number is invalid!')
+      return false
+    }
+    if (password.length<8){
+      alert('Your password must have at least 8 digits!')
+      return false
+    }
+    if (!isSelected){
+      alert('Please accept the terms and conditions!')
+      return false
+    }
+    return true
   }
 
   const [isSelected, setSelection] = useState(false);
@@ -97,8 +122,9 @@ const Details = ({navigation}) => {
 
       <Input
         placeholder="Telephone Bimbit"
-        onChangeText={(text) => setPhNo(text)}
+        onChangeText={(text) => setPhNo(text.replace(/([-.*#+?^=!:${}()|\[\]\/\\])/g, ""))}
         value={phNo}
+        keyboardType='number-pad'
         leftIcon={{
           type: "fontawesome",
           name: "phone",
@@ -185,4 +211,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default signupPage;
+export default signinPage;
