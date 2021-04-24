@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import "react-native-gesture-handler";
 import {
   StyleSheet,
@@ -10,8 +10,24 @@ import {
   ScrollView,
 } from "react-native";
 import { Input } from "react-native-elements";
+import { firebase } from "./firebase/config";
 
 const feedBackPage = ({ navigation }) => {
+  const [text,setText] = useState('')
+  const userid = firebase.auth().currentUser.uid;
+  
+  const submitFeedback = () =>{
+    if (text != ''){
+      firebase.database().ref('/Users/'+userid+"/First/").set(false)
+      firebase.database().ref('/Users/'+userid+"/Feedback/Text/").set(text)
+      firebase.database().ref('/Users/'+userid+"/Feedback/Time").set(new Date().getTime())
+      navigation.navigate("mainMenuPage")
+    }else{
+      alert('Please provide your feedback!')
+    }
+    
+  }
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <StatusBar />
@@ -50,11 +66,16 @@ const feedBackPage = ({ navigation }) => {
           <Text style={styles.textStyle}>
             Bagaimana anda rasa mengenai sesi ini?
           </Text>
-          <Input style={{ marginTop: 20 }} placeholder="Catatan" />
+          <Input 
+            style={{ marginTop: 20 }} 
+            placeholder="Catatan" 
+            onChangeText={(text) => setText(text)}
+            value={text}
+          />
           <View style={{ alignItems: "center", marginTop: 30 }}>
             <TouchableOpacity
               style={[styles.buttonStyle, { backgroundColor: "#70D789" }]}
-              onPress={() => navigation.navigate("mainMenuPage")}
+              onPress={() => submitFeedback()}
             >
               <Text style={[styles.buttonText, { color: "white" }]}>
                 Teruskan

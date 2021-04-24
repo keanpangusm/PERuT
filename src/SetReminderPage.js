@@ -11,6 +11,7 @@ import {
   Modal,
 } from "react-native";
 import { Picker } from "@react-native-picker/picker";
+import { firebase } from "./firebase/config";
 
 const setReminderPage = ({ navigation }) => {
   const [show, setShow] = useState(false);
@@ -21,6 +22,18 @@ const setReminderPage = ({ navigation }) => {
   const [tempHour, setTempHour] = useState("");
   const [tempMinute, setTempMinute] = useState("");
   const [tempAmOrPm, setTempAmOrPm] = useState("");
+  const userid = firebase.auth().currentUser.uid;
+
+  const uploadTime = () =>{
+    var h = parseInt(time.substring(0,2));
+    var m = parseInt(time.substring(3,5));
+    if (time.substring(6,8) == "pm"){
+      h += 12;
+    }
+    m = m + (h*60)
+    console.log(m)
+    firebase.database().ref('/Users/'+userid+"/Reminder/").set(m)
+  }
 
   const showTimePicker = () => {
     setTempTime();
@@ -286,7 +299,10 @@ const setReminderPage = ({ navigation }) => {
           >
             <TouchableOpacity
               style={[styles.buttonStyle, { backgroundColor: "#E98C53" }]}
-              onPress={() => navigation.navigate("mulaProgramPage")}
+              onPress={() => {
+                uploadTime();
+                navigation.navigate("mulaProgramPage")}
+              }
             >
               <Text style={[styles.buttonText, { color: "white" }]}>
                 Simpan

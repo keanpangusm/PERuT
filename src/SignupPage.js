@@ -50,7 +50,7 @@ const Details = () => {
             Email: email,
             Name: name,
             Phone: phNo,
-            First: true,
+            First: "yes",
           };
           const usersRef = firebase.database().ref("Users/" + uid);
           usersRef
