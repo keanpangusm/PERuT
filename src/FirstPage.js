@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
-const firstPage = ({ navigation }) => {
+const firstPage = () => {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <StatusBar />
@@ -22,7 +22,7 @@ const firstPage = ({ navigation }) => {
               Selamat Datang{"\n"}ke PERuT!
             </Text>
             <View style={{ flex: 2 }}>
-              <LoginAndSignupButton navigation={{ navigation }} />
+              <LoginAndSignupButton />
             </View>
           </View>
         </View>
@@ -39,7 +39,7 @@ const LoginAndSignupButton = () => {
     <View style={{ alignItems: "center", marginTop: 80 }}>
       <TouchableOpacity
         style={[styles.buttonStyle, { backgroundColor: "#E98C53" }]}
-        onPress={() => navigation.navigate("signupPage")}
+        onPress={() => navigation.navigate("signUpPage")}
       >
         <Text style={[styles.buttonText, { color: "white" }]}>
           Daftar akaun baru
@@ -51,7 +51,7 @@ const LoginAndSignupButton = () => {
           styles.buttonStyle,
           { borderColor: "black", borderWidth: 1, marginTop: 20 },
         ]}
-        onPress={() => navigation.navigate("signinPage")}
+        onPress={() => navigation.navigate("signInPage")}
       >
         <Text style={styles.buttonText}>Sudah mempunyai akaun?</Text>
       </TouchableOpacity>

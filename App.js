@@ -4,8 +4,8 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import firstPage from "./src/FirstPage";
-import signupPage from "./src/SignupPage";
-import signinPage from "./src/SigninPage";
+import signUpPage from "./src/SignUpPage";
+import signInPage from "./src/SignInPage";
 import homePage from "./src/HomePage";
 import greetingPage from "./src/GreetingPage";
 import firstQuestionPage from "./src/FirstQuestionPage";
@@ -29,13 +29,13 @@ const app = () => {
             options={{ headerShown: false }}
           />
           <Stack.Screen
-            name="signupPage"
-            component={signupPage}
+            name="signUpPage"
+            component={signUpPage}
             options={{ headerShown: false }}
           />
           <Stack.Screen
-            name="signinPage"
-            component={signinPage}
+            name="signInPage"
+            component={signInPage}
             options={{ headerShown: false }}
           />
           <Stack.Screen

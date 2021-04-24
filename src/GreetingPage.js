@@ -1,4 +1,4 @@
-import React, {useState,useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import "react-native-gesture-handler";
 import {
   StyleSheet,
@@ -8,18 +8,20 @@ import {
   SafeAreaView,
   StatusBar,
 } from "react-native";
-import { firebase } from './firebase/config'
+import { firebase } from "./firebase/config";
 
 const greetingPage = ({ navigation }) => {
-  
-  const userid = firebase.auth().currentUser.uid
-  const [name,setName] = useState('-');
+  const userid = firebase.auth().currentUser.uid;
+  const [name, setName] = useState("-");
 
   useEffect(() => {
-    firebase.database().ref('/Users/'+userid+"/").once('value', (snapshot) => {
-      const firebasedata = snapshot.val();
-      setName(firebasedata['Name'])
-    })
+    firebase
+      .database()
+      .ref("/Users/" + userid + "/")
+      .once("value", (snapshot) => {
+        const firebasedata = snapshot.val();
+        setName(firebasedata["Name"]);
+      });
   }, []);
 
   return (

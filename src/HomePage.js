@@ -11,7 +11,7 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
-const homePage = ({ navigation}) => {
+const homePage = () => {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <StatusBar />
@@ -26,12 +26,19 @@ const homePage = ({ navigation}) => {
               Sila pilih penggunaan anda
             </Text>
             <View style={{ flex: 2 }}>
-              <LoginAndSignupButton navigation={{ navigation }} />
+              <LoginAndSignupButton />
             </View>
           </View>
         </View>
         <View style={{ flex: 20 }}>
-          <View style={{ position: "absolute", bottom: 30 }}>
+          <View
+            style={{
+              position: "absolute",
+              bottom: 30,
+              marginLeft: 10,
+              marginRight: 10,
+            }}
+          >
             <Text>
               {
                 "Applikasi ini disediakan oleh pihak My Gut-Brain Center Hospital Universiti Sains Malaysia, Kubang Kerian "

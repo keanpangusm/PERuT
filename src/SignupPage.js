@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "react-native-gesture-handler";
-import { firebase } from './firebase/config'
+import { firebase } from "./firebase/config";
 import { Input } from "react-native-elements";
 import {
   StyleSheet,
@@ -14,13 +14,12 @@ import {
 import CheckBox from "@react-native-community/checkbox";
 import { useNavigation } from "@react-navigation/native";
 
-const signinPage = ({navigation}) => {
-
+const signUpPage = () => {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <StatusBar />
       <ScrollView
-        style={{ flex: 1, paddingLeft: 30, paddingRight: 30, marginBottom: 20 }}
+        style={{ flex: 1, marginLeft: 30, marginRight: 30 }}
         showsVerticalScrollIndicator={false}
       >
         <View style={{ flex: 1, marginTop: 40 }}>
@@ -39,62 +38,67 @@ const signinPage = ({navigation}) => {
 
 const Details = () => {
   const navigation = useNavigation();
-  const signUp = () =>{
-    if (validation()){
-      firebase.auth().createUserWithEmailAndPassword(email, password).then((response) => {
-        const uid = response.user.uid
-        const data = {
+  const signUp = () => {
+    if (validation()) {
+      firebase
+        .auth()
+        .createUserWithEmailAndPassword(email, password)
+        .then((response) => {
+          const uid = response.user.uid;
+          const data = {
             Id: uid,
-            Email:email,
-            Name:name,
-            Phone:phNo,
-            First:true
-        };
-        const usersRef = firebase.database().ref('Users/'+uid)
-        usersRef.set(data).then(() => {
-            alert("Congratulation! You have registered!")
-            navigation.goBack()
-          })
-          .catch((error) => {
-              alert(error)
-          });
-      })
-      .catch((error) => {
-          alert(error)
-      });
+            Email: email,
+            Name: name,
+            Phone: phNo,
+            First: true,
+          };
+          const usersRef = firebase.database().ref("Users/" + uid);
+          usersRef
+            .set(data)
+            .then(() => {
+              alert("Congratulation! You have registered!");
+              navigation.navigate("signInPage");
+            })
+            .catch((error) => {
+              alert(error);
+            });
+        })
+        .catch((error) => {
+          alert(error);
+        });
     }
-  }
+  };
 
-  const validation = () =>{
-    if (name.length==0){
-      alert('Your name cannot be empty!')
-      return false
+  const validation = () => {
+    if (name.length == 0) {
+      alert("Your name cannot be empty!");
+      return false;
     }
     let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
     if (reg.test(email) === false) {
-      alert("Your email is invalid!")
+      alert("Your email is invalid!");
       return false;
     }
-    if (phNo.length<10 || phNo.length >11){
-      alert('Your phone number is invalid!')
-      return false
+    if (phNo.length < 10 || phNo.length > 11) {
+      alert("Your phone number is invalid!");
+      return false;
     }
-    if (password.length<8){
-      alert('Your password must have at least 8 digits!')
-      return false
+    if (password.length < 8) {
+      alert("Your password must have at least 8 digits!");
+      return false;
     }
-    if (!isSelected){
-      alert('Please accept the terms and conditions!')
-      return false
+    if (!isSelected) {
+      alert("Please accept the terms and conditions!");
+      return false;
     }
-    return true
-  }
+    return true;
+  };
 
   const [isSelected, setSelection] = useState(false);
-  const [name,setName] = useState('')
-  const [email,setEmail] = useState('')
-  const [phNo,setPhNo] = useState('')
-  const [password,setPassword] = useState('')
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phNo, setPhNo] = useState("");
+  const [password, setPassword] = useState("");
 
   return (
     <View>
@@ -122,9 +126,11 @@ const Details = () => {
 
       <Input
         placeholder="Telephone Bimbit"
-        onChangeText={(text) => setPhNo(text.replace(/([-.*#+?^=!:${}()|\[\]\/\\])/g, ""))}
+        onChangeText={(text) =>
+          setPhNo(text.replace(/([-.*#+?^=!:${}()|\[\]\/\\])/g, ""))
+        }
         value={phNo}
-        keyboardType='number-pad'
+        keyboardType="number-pad"
         leftIcon={{
           type: "fontawesome",
           name: "phone",
@@ -183,10 +189,9 @@ const styles = StyleSheet.create({
   },
   detailsContainer: {
     flex: 4,
-    marginTop: 30,
-    paddingLeft: 15,
-    paddingRight: 15,
-    paddingTop: 20,
+    marginTop: 50,
+    marginLeft: 15,
+    marginRight: 15,
     paddingBottom: 30,
   },
   description: {
@@ -211,4 +216,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default signinPage;
+export default signUpPage;
