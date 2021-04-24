@@ -13,11 +13,12 @@ import {
 } from "react-native";
 import { Video } from "expo-av";
 
-const audioPage = ({ navigation }) => {
+const audioPage = ({ navigation,route }) => {
   const video = useRef(null);
   const [show, setShow] = useState(false);
   const [status, setStatus] = useState({});
 
+  console.log('Video ID',route.params['VideoID'])
   const whenVideoFinish = (playBackStatus) => {
     if (playBackStatus.didJustFinish) {
       console.log("video finished");
@@ -61,7 +62,7 @@ const audioPage = ({ navigation }) => {
             </View>
 
             <Video
-              source={require("../assets/audio/ImageryTherapy.wav")}
+              source={route.params['VideoID']==1?require("../assets/audio/ImageryTherapy.wav"):require("../assets/audio/PMR.wav")}
               useNativeControls={true}
               resizeMode="contain"
               ref={video}
