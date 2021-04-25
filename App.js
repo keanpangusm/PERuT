@@ -20,11 +20,13 @@ import feedBackPage from "./src/FeedBackPage";
 import mainMenuPage from "./src/MainMenuPage";
 
 const app = () => {
+  //chee wei sohai
+
   return (
     <SafeAreaProvider>
       <NavigationContainer>
         <Stack.Navigator>
-          <Stack.Screen
+          {/* <Stack.Screen
             name="firstPage"
             component={firstPage}
             options={{ headerShown: false }}
@@ -48,23 +50,23 @@ const app = () => {
             name="greetingPage"
             component={greetingPage}
             options={{ headerShown: false }}
-          />
-          <Stack.Screen
+          /> */}
+          {/* <Stack.Screen
             name="firstQuestionPage"
             component={firstQuestionPage}
             options={{ headerShown: false }}
-          />
+          /> */}
           <Stack.Screen
             name="secondQuestionPage"
             component={secondQuestionPage}
             options={{ headerShown: false }}
           />
-          <Stack.Screen
+          {/* <Stack.Screen
             name="thirdQuestionPage"
             component={thirdQuestionPage}
             options={{ headerShown: false }}
-          />
-          <Stack.Screen
+          /> */}
+          {/* <Stack.Screen
             name="guidePage"
             component={guidePage}
             options={{ headerShown: false }}
@@ -98,7 +100,7 @@ const app = () => {
             name="mainMenuPage"
             component={mainMenuPage}
             options={{ headerShown: false }}
-          />
+          /> */}
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>
