@@ -58,7 +58,7 @@ const Details = () => {
             Email: email,
             Name: name,
             Phone: phNo,
-            First: true,
+            First: "yes",
           };
           const usersRef = firebase.database().ref("Users/" + uid);
           usersRef
@@ -229,7 +229,7 @@ const styles = StyleSheet.create({
   description: {
     fontSize: 20,
     paddingBottom: 20,
-    color: "#F19A57",
+    color: "#FFFFFF",
   },
   termAndCondition: {
     paddingLeft: 15,

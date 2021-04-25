@@ -15,7 +15,7 @@ import {
 import { LinearGradient } from "expo-linear-gradient";
 import { Video } from "expo-av";
 
-const audioPage = ({ navigation }) => {
+const audioPage = ({ navigation, route }) => {
   const video = useRef(null);
   const [show, setShow] = useState(false);
   const [status, setStatus] = useState({});
@@ -74,7 +74,11 @@ const audioPage = ({ navigation }) => {
                   </View>
 
                   <Video
-                    source={require("../assets/audio/ImageryTherapy.wav")}
+                    source={
+                      route.params["VideoID"] == 1
+                        ? require("../assets/audio/ImageryTherapy.wav")
+                        : require("../assets/audio/PMR.wav")
+                    }
                     useNativeControls={true}
                     resizeMode="contain"
                     ref={video}

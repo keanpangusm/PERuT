@@ -24,7 +24,7 @@ const signInPage = ({ navigation }) => {
       .signInWithEmailAndPassword(email, password)
       .then((response) => {
         const uid = response.user.uid;
-        const usersRef = firebase.database().ref("Users/" + uid);
+        const usersRef = firebase.database().ref("Users/" + uid + "/First/");
         usersRef
           .get()
           .then((firebaseDocument) => {
@@ -32,7 +32,9 @@ const signInPage = ({ navigation }) => {
               alert("User does not exist anymore.");
               return;
             }
-            navigation.navigate("homePage");
+            navigation.navigate("homePage", {
+              First: JSON.stringify(firebaseDocument),
+            });
           })
           .catch((error) => {
             alert("error" + error);
@@ -129,7 +131,7 @@ const styles = StyleSheet.create({
   description: {
     fontSize: 20,
     paddingBottom: 20,
-    color: "#F19A57",
+    color: "#FFFFFF",
   },
   termAndCondition: {
     paddingLeft: 15,

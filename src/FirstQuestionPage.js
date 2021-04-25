@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "react-native-gesture-handler";
 import {
   StyleSheet,
@@ -13,8 +13,29 @@ import {
 } from "react-native";
 import ProgressBar from "react-native-progress/Bar";
 import { Input } from "react-native-elements";
+import { firebase } from "./firebase/config";
 
 const firstQuestionPage = ({ navigation }) => {
+  // const userid = firebase.auth().currentUser.uid;
+  const [klinikName, setKlinikName] = useState("");
+  const [doctorName, setDoctorName] = useState("");
+
+  const uploadKlinik = () => {
+    if (klinikName != "" && doctorName != "") {
+      firebase
+        .database()
+        .ref("/Users/" + userid + "/Klinik/Name/")
+        .set(klinikName);
+      firebase
+        .database()
+        .ref("/Users/" + userid + "/Klinik/Doctor/")
+        .set(doctorName);
+      navigation.navigate("thirdQuestionPage");
+    } else {
+      alert("Please fill in the information!");
+    }
+  };
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <StatusBar />
@@ -58,6 +79,8 @@ const firstQuestionPage = ({ navigation }) => {
                 <View style={{ marginTop: 20 }}>
                   <Input
                     placeholder="Nama"
+                    onChangeText={(text) => setDoctorName(text)}
+                    value={doctorName}
                     placeholderTextColor="#FFFFFF"
                     inputStyle={{ color: "#FFFFFF" }}
                     inputContainerStyle={{ borderBottomColor: "#FFFFFF" }}
@@ -69,6 +92,8 @@ const firstQuestionPage = ({ navigation }) => {
                   />
                   <Input
                     placeholder="Hospital/Klinik"
+                    onChangeText={(text) => setKlinikName(text)}
+                    value={klinikName}
                     placeholderTextColor="#FFFFFF"
                     inputStyle={{ color: "#FFFFFF" }}
                     inputContainerStyle={{ borderBottomColor: "#FFFFFF" }}
@@ -82,7 +107,7 @@ const firstQuestionPage = ({ navigation }) => {
                 <View style={{ alignItems: "center", marginTop: 5 }}>
                   <TouchableOpacity
                     style={[styles.buttonStyle, { backgroundColor: "#34433C" }]}
-                    onPress={() => navigation.navigate("thirdQuestionPage")}
+                    onPress={() => uploadKlinik()}
                   >
                     <Text style={[styles.buttonText, { color: "white" }]}>
                       Teruskan
