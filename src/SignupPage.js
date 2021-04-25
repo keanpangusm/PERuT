@@ -10,6 +10,8 @@ import {
   ScrollView,
   TouchableOpacity,
   StatusBar,
+  ImageBackground,
+  Dimensions,
 } from "react-native";
 import CheckBox from "@react-native-community/checkbox";
 import { useNavigation } from "@react-navigation/native";
@@ -18,19 +20,25 @@ const signUpPage = () => {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <StatusBar />
-      <ScrollView
-        style={{ flex: 1, marginLeft: 30, marginRight: 30 }}
-        showsVerticalScrollIndicator={false}
-      >
-        <View style={{ flex: 1, marginTop: 40 }}>
-          <Text style={styles.bigTitle}>
-            Daftar untuk mulakan{"\n"}terapi anda
-          </Text>
-        </View>
+      <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
+        <ImageBackground
+          source={require("../assets/background.png")}
+          style={styles.background}
+        >
+          <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
+            <View style={{ flex: 1, marginLeft: 30, marginRight: 30 }}>
+              <View style={{ flex: 1, marginTop: 40 }}>
+                <Text style={styles.bigTitle}>
+                  Daftar untuk mulakan{"\n"}terapi anda
+                </Text>
+              </View>
 
-        <View style={styles.detailsContainer}>
-          <Details />
-        </View>
+              <View style={styles.detailsContainer}>
+                <Details />
+              </View>
+            </View>
+          </ScrollView>
+        </ImageBackground>
       </ScrollView>
     </SafeAreaView>
   );
@@ -106,26 +114,37 @@ const Details = () => {
 
       <Input
         placeholder="Nama"
+        placeholderTextColor="#FFFFFF"
+        inputStyle={{ color: "#FFFFFF" }}
+        inputContainerStyle={{ borderBottomColor: "#FFFFFF" }}
         onChangeText={(text) => setName(text)}
         value={name}
         leftIcon={{
           type: "antdesign",
           name: "user",
+          color: "#FFFFFF",
         }}
       />
 
       <Input
         placeholder="Emel"
+        placeholderTextColor="#FFFFFF"
+        inputStyle={{ color: "#FFFFFF" }}
+        inputContainerStyle={{ borderBottomColor: "#FFFFFF" }}
         onChangeText={(text) => setEmail(text)}
         value={email}
         leftIcon={{
           type: "zocial",
           name: "email",
+          color: "#FFFFFF",
         }}
       />
 
       <Input
         placeholder="Telephone Bimbit"
+        placeholderTextColor="#FFFFFF"
+        inputStyle={{ color: "#FFFFFF" }}
+        inputContainerStyle={{ borderBottomColor: "#FFFFFF" }}
         onChangeText={(text) =>
           setPhNo(text.replace(/([-.*#+?^=!:${}()|\[\]\/\\])/g, ""))
         }
@@ -134,16 +153,21 @@ const Details = () => {
         leftIcon={{
           type: "fontawesome",
           name: "phone",
+          color: "#FFFFFF",
         }}
       />
 
       <Input
         placeholder="Password"
+        placeholderTextColor="#FFFFFF"
+        inputStyle={{ color: "#FFFFFF" }}
+        inputContainerStyle={{ borderBottomColor: "#FFFFFF" }}
         onChangeText={(text) => setPassword(text)}
         value={password}
         leftIcon={{
           type: "fontawesome",
           name: "lock",
+          color: "#FFFFFF",
         }}
         secureTextEntry={true}
       />
@@ -152,6 +176,8 @@ const Details = () => {
         <CheckBox
           value={isSelected}
           onValueChange={setSelection}
+          tintColor={{ true: "#FFFFFF", false: "#FFFFFF" }}
+          tintColors={{ true: "#FFFFFF", false: "#FFFFFF" }}
           style={{
             transform: [{ scaleX: 1.1 }, { scaleY: 1.1 }],
             paddingTop: 40,
@@ -159,11 +185,11 @@ const Details = () => {
         />
         <Text style={styles.termAndCondition}>
           {"Saya terima, "}
-          <Text style={{ color: "#1DAD58" }}>
+          <Text style={{ color: "#F19A57" }}>
             {"syarat "}
-            <Text style={{ color: "black" }}>
+            <Text style={{ color: "#FFFFFF" }}>
               {"& "}
-              <Text style={{ color: "#1DAD58" }}>
+              <Text style={{ color: "#F19A57" }}>
                 {"\n"}
                 {"polisi pengumpulan data"}
               </Text>
@@ -182,33 +208,40 @@ const Details = () => {
 };
 
 const styles = StyleSheet.create({
+  background: {
+    flex: 1,
+    width: Dimensions.get("window").width,
+    height: Dimensions.get("window").height,
+  },
   bigTitle: {
     fontWeight: "bold",
     fontSize: 30,
     textAlign: "center",
+    color: "#383838",
   },
   detailsContainer: {
     flex: 4,
-    marginTop: 50,
     marginLeft: 15,
     marginRight: 15,
+    marginTop: 50,
     paddingBottom: 30,
   },
   description: {
     fontSize: 20,
     paddingBottom: 20,
-    color: "#1DAD58",
+    color: "#F19A57",
   },
   termAndCondition: {
     paddingLeft: 15,
     fontSize: 15,
+    color: "#FFFFFF",
   },
   buttonStyle: {
     alignItems: "center",
     width: 200,
     padding: 10,
     borderRadius: 30,
-    backgroundColor: "#E98C53",
+    backgroundColor: "#34433C",
   },
   buttonText: {
     fontSize: 20,

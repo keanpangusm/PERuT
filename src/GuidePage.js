@@ -8,6 +8,8 @@ import {
   SafeAreaView,
   StatusBar,
   ScrollView,
+  ImageBackground,
+  Dimensions,
 } from "react-native";
 
 const guidePage = ({ navigation }) => {
@@ -15,60 +17,78 @@ const guidePage = ({ navigation }) => {
     <SafeAreaView style={{ flex: 1 }}>
       <StatusBar />
       <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
-        <View style={{ marginTop: 30, marginLeft: 40, marginRight: 40 }}>
-          <Text style={{ fontSize: 25, textAlign: "center" }}>
-            Perkara yang anda perlu lakukan
-          </Text>
-          <View style={[styles.viewContainer, { marginTop: 10 }]}>
-            <Text style={styles.viewTitle}>1. Dengar dan ikuti</Text>
-            <Text style={styles.viewText}>
-              Anda perlu dengar and ikuti arahan yang diberi dalam audio yang
-              bertujuan untuk mengurangkan gejala perut kembung anda.
-            </Text>
-          </View>
-          <View style={styles.viewContainer}>
-            <Text style={styles.viewTitle}>2. Isi dan rekod</Text>
-            <Text style={styles.viewText}>
-              Anda perlu mengisi borang soal selidik untuk mencatat keberkesanan
-              terapi tersebut. Soal selidik perlu diisi sebelum intervensi,
-              intervensi kali ke-6, intervensi kali ke-12, dan 1 bulan selepas
-              intervensi.
-            </Text>
-          </View>
-          <View style={styles.viewContainer}>
-            <Text style={styles.viewTitle}>3. Baca dan memahami</Text>
-            <Text style={styles.viewText}>
-              Bahan rujukan, artikel serta informasi mengenai perut kembung akan
-              dilampirkan pada applikasi ini. Anda diminta untuk membaca dan
-              memahaminya bagi tujuan pengurangan gejala anda.
-            </Text>
-          </View>
-          <View style={styles.viewContainer}>
-            <Text style={styles.viewText}>
-              Jika anda mempunyai sebarang masalah, anda boleh menghubungi pihak
-              kami melalui rangkaian yang disediakan atau menghubungi pihak
-              penyelidik
-            </Text>
-          </View>
-          <View
-            style={{ alignItems: "center", marginTop: 35, marginBottom: 40 }}
-          >
-            <TouchableOpacity
-              style={[styles.buttonStyle, { backgroundColor: "#70D789" }]}
-              onPress={() => navigation.navigate("setReminderPage")}
-            >
-              <Text style={[styles.buttonText, { color: "white" }]}>
-                Teruskan
+        <ImageBackground
+          source={require("../assets/background.png")}
+          style={styles.background}
+        >
+          <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
+            <View style={{ marginTop: 30, marginLeft: 40, marginRight: 40 }}>
+              <Text
+                style={{ fontSize: 25, textAlign: "center", color: "#383838" }}
+              >
+                Perkara yang anda perlu lakukan
               </Text>
-            </TouchableOpacity>
-          </View>
-        </View>
+              <View style={[styles.viewContainer, { marginTop: 10 }]}>
+                <Text style={styles.viewTitle}>1. Dengar dan ikuti</Text>
+                <Text style={styles.viewText}>
+                  Anda perlu dengar and ikuti arahan yang diberi dalam audio
+                  yang bertujuan untuk mengurangkan gejala perut kembung anda.
+                </Text>
+              </View>
+              <View style={styles.viewContainer}>
+                <Text style={styles.viewTitle}>2. Isi dan rekod</Text>
+                <Text style={styles.viewText}>
+                  Anda perlu mengisi borang soal selidik untuk mencatat
+                  keberkesanan terapi tersebut. Soal selidik perlu diisi sebelum
+                  intervensi, intervensi kali ke-6, intervensi kali ke-12, dan 1
+                  bulan selepas intervensi.
+                </Text>
+              </View>
+              <View style={styles.viewContainer}>
+                <Text style={styles.viewTitle}>3. Baca dan memahami</Text>
+                <Text style={styles.viewText}>
+                  Bahan rujukan, artikel serta informasi mengenai perut kembung
+                  akan dilampirkan pada applikasi ini. Anda diminta untuk
+                  membaca dan memahaminya bagi tujuan pengurangan gejala anda.
+                </Text>
+              </View>
+              <View style={styles.viewContainer}>
+                <Text style={styles.viewText}>
+                  Jika anda mempunyai sebarang masalah, anda boleh menghubungi
+                  pihak kami melalui rangkaian yang disediakan atau menghubungi
+                  pihak penyelidik
+                </Text>
+              </View>
+              <View
+                style={{
+                  alignItems: "center",
+                  marginTop: 35,
+                  marginBottom: 40,
+                }}
+              >
+                <TouchableOpacity
+                  style={[styles.buttonStyle, { backgroundColor: "#34433C" }]}
+                  onPress={() => navigation.navigate("setReminderPage")}
+                >
+                  <Text style={[styles.buttonText, { color: "white" }]}>
+                    Teruskan
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </ScrollView>
+        </ImageBackground>
       </ScrollView>
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
+  background: {
+    flex: 1,
+    width: Dimensions.get("window").width,
+    height: Dimensions.get("window").height,
+  },
   viewContainer: {
     marginTop: 15,
     paddingLeft: 10,
@@ -76,17 +96,18 @@ const styles = StyleSheet.create({
     paddingTop: 20,
     paddingBottom: 30,
     borderRadius: 20,
-    backgroundColor: "#F1E7D1",
+    backgroundColor: "#F19A57",
   },
   viewTitle: {
     fontWeight: "bold",
     fontSize: 20,
     textAlign: "center",
-    color: "#1DAD58",
+    color: "#FFFFFF",
   },
   viewText: {
     fontSize: 20,
     textAlign: "center",
+    color: "#FFFFFF",
   },
   buttonStyle: {
     alignItems: "center",

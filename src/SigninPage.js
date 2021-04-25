@@ -10,6 +10,8 @@ import {
   ScrollView,
   TouchableOpacity,
   StatusBar,
+  Dimensions,
+  ImageBackground,
 } from "react-native";
 
 const signInPage = ({ navigation }) => {
@@ -44,58 +46,79 @@ const signInPage = ({ navigation }) => {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <StatusBar />
-      <ScrollView
-        style={{ flex: 1, marginLeft: 30, marginRight: 30 }}
-        showsVerticalScrollIndicator={false}
-      >
-        <View style={{ marginTop: "50%" }}>
-          <View>
-            <Text style={styles.bigTitle}>Log masuk</Text>
-          </View>
+      <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
+        <ImageBackground
+          source={require("../assets/background.png")}
+          style={styles.background}
+        >
+          <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
+            <View style={{ marginTop: "50%", marginLeft: 30, marginRight: 30 }}>
+              <View>
+                <Text style={styles.bigTitle}>Log masuk</Text>
+              </View>
 
-          <View style={styles.detailsContainer}>
-            <View>
-              <Text style={styles.description}>Masukkan maklumat anda</Text>
+              <View style={styles.detailsContainer}>
+                <View>
+                  <Text style={styles.description}>Masukkan maklumat anda</Text>
 
-              <Input
-                placeholder="Emel"
-                onChangeText={(text) => setEmail(text)}
-                value={email}
-                leftIcon={{
-                  type: "zocial",
-                  name: "email",
-                }}
-              />
+                  <Input
+                    placeholder="Emel"
+                    placeholderTextColor="#FFFFFF"
+                    inputStyle={{ color: "#FFFFFF" }}
+                    inputContainerStyle={{ borderBottomColor: "#FFFFFF" }}
+                    onChangeText={(text) => setEmail(text)}
+                    value={email}
+                    leftIcon={{
+                      type: "zocial",
+                      name: "email",
+                      color: "#FFFFFF",
+                    }}
+                  />
 
-              <Input
-                placeholder="Password"
-                onChangeText={(text) => setPassword(text)}
-                value={password}
-                leftIcon={{
-                  type: "fontawesome",
-                  name: "lock",
-                }}
-                secureTextEntry={true}
-              />
+                  <Input
+                    placeholder="Password"
+                    placeholderTextColor="#FFFFFF"
+                    inputStyle={{ color: "#FFFFFF" }}
+                    inputContainerStyle={{ borderBottomColor: "#FFFFFF" }}
+                    onChangeText={(text) => setPassword(text)}
+                    value={password}
+                    leftIcon={{
+                      type: "fontawesome",
+                      name: "lock",
+                      color: "#FFFFFF",
+                    }}
+                    secureTextEntry={true}
+                  />
 
-              <View style={{ alignItems: "center", marginTop: 25 }}>
-                <TouchableOpacity style={styles.buttonStyle} onPress={signIn}>
-                  <Text style={styles.buttonText}>Log masuk</Text>
-                </TouchableOpacity>
+                  <View style={{ alignItems: "center", marginTop: 25 }}>
+                    <TouchableOpacity
+                      style={styles.buttonStyle}
+                      onPress={signIn}
+                    >
+                      <Text style={styles.buttonText}>Log masuk</Text>
+                    </TouchableOpacity>
+                  </View>
+                </View>
               </View>
             </View>
-          </View>
-        </View>
+          </ScrollView>
+        </ImageBackground>
       </ScrollView>
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
+  background: {
+    flex: 1,
+    width: Dimensions.get("window").width,
+    height: Dimensions.get("window").height,
+  },
   bigTitle: {
     fontWeight: "bold",
     fontSize: 30,
     textAlign: "center",
+    color: "#383838",
   },
   detailsContainer: {
     marginTop: 50,
@@ -106,7 +129,7 @@ const styles = StyleSheet.create({
   description: {
     fontSize: 20,
     paddingBottom: 20,
-    color: "#1DAD58",
+    color: "#F19A57",
   },
   termAndCondition: {
     paddingLeft: 15,
@@ -117,7 +140,7 @@ const styles = StyleSheet.create({
     width: 200,
     padding: 10,
     borderRadius: 30,
-    backgroundColor: "#E98C53",
+    backgroundColor: "#34433C",
   },
   buttonText: {
     fontSize: 20,

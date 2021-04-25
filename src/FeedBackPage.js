@@ -8,6 +8,8 @@ import {
   SafeAreaView,
   StatusBar,
   ScrollView,
+  ImageBackground,
+  Dimensions,
 } from "react-native";
 import { Input } from "react-native-elements";
 
@@ -16,61 +18,80 @@ const feedBackPage = ({ navigation }) => {
     <SafeAreaView style={{ flex: 1 }}>
       <StatusBar />
       <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1 }}>
-        <View
-          style={{
-            marginTop: 30,
-            marginLeft: 40,
-            marginRight: 40,
-            marginBottom: 20,
-          }}
+        <ImageBackground
+          source={require("../assets/background.png")}
+          style={styles.background}
         >
-          <Text
-            style={[
-              styles.textStyle,
-              { color: "#1DAD58", fontSize: 30, textAlign: "center" },
-            ]}
-          >
-            Tahniah!
-          </Text>
-          <Text
-            style={[
-              styles.textStyle,
-              { fontSize: 30, textAlign: "center", marginTop: 10 },
-            ]}
-          >
-            Anda telah berjaya menghabiskan pendengaran sesi ini
-          </Text>
-          <View
-            style={{
-              borderBottomColor: "black",
-              borderBottomWidth: 1,
-              marginTop: 20,
-            }}
-          />
-          <Text style={styles.textStyle}>
-            Bagaimana anda rasa mengenai sesi ini?
-          </Text>
-          <Input style={{ marginTop: 20 }} placeholder="Catatan" />
-          <View style={{ alignItems: "center", marginTop: 30 }}>
-            <TouchableOpacity
-              style={[styles.buttonStyle, { backgroundColor: "#70D789" }]}
-              onPress={() => navigation.navigate("mainMenuPage")}
+          <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
+            <View
+              style={{
+                marginTop: 30,
+                marginLeft: 40,
+                marginRight: 40,
+                marginBottom: 20,
+              }}
             >
-              <Text style={[styles.buttonText, { color: "white" }]}>
-                Teruskan
+              <Text
+                style={[
+                  styles.textStyle,
+                  { fontSize: 30, textAlign: "center" },
+                ]}
+              >
+                Tahniah!
               </Text>
-            </TouchableOpacity>
-          </View>
-        </View>
+              <Text
+                style={[
+                  styles.textStyle,
+                  { fontSize: 30, textAlign: "center", marginTop: 10 },
+                ]}
+              >
+                Anda telah berjaya menghabiskan pendengaran sesi ini
+              </Text>
+              <View
+                style={{
+                  borderBottomColor: "white",
+                  borderBottomWidth: 1,
+                  marginTop: 20,
+                }}
+              />
+              <Text style={styles.textStyle}>
+                Bagaimana anda rasa mengenai sesi ini?
+              </Text>
+              <Input
+                placeholderTextColor="#FFFFFF"
+                inputStyle={{ color: "#FFFFFF" }}
+                inputContainerStyle={{ borderBottomColor: "#FFFFFF" }}
+                style={{ marginTop: 20 }}
+                placeholder="Catatan"
+              />
+              <View style={{ alignItems: "center", marginTop: 30 }}>
+                <TouchableOpacity
+                  style={[styles.buttonStyle, { backgroundColor: "#34433C" }]}
+                  onPress={() => navigation.navigate("mainMenuPage")}
+                >
+                  <Text style={[styles.buttonText, { color: "white" }]}>
+                    Teruskan
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </ScrollView>
+        </ImageBackground>
       </ScrollView>
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
+  background: {
+    flex: 1,
+    width: Dimensions.get("window").width,
+    height: Dimensions.get("window").height,
+  },
   textStyle: {
     fontSize: 20,
     marginTop: 20,
+    color: "#FFFFFF",
   },
   buttonStyle: {
     alignItems: "center",
