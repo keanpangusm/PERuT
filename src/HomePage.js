@@ -43,7 +43,7 @@ const homePage = ({ navigation, route }) => {
               <View>
                 <View style={{ alignItems: "center", marginTop: 30 }}>
                   <TouchableOpacity
-                    style={[styles.buttonStyle, { backgroundColor: "#E98C53" }]}
+                    style={[styles.buttonStyle, { backgroundColor: "#34433C" }]}
                     onPress={() => {
                       if (String(firstTime) == String("true")) {
                         navigation.navigate("greetingPage");

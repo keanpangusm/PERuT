@@ -16,7 +16,7 @@ import { Input } from "react-native-elements";
 import { firebase } from "./firebase/config";
 
 const firstQuestionPage = ({ navigation }) => {
-  // const userid = firebase.auth().currentUser.uid;
+  const userid = firebase.auth().currentUser.uid;
   const [klinikName, setKlinikName] = useState("");
   const [doctorName, setDoctorName] = useState("");
 
@@ -82,6 +82,7 @@ const firstQuestionPage = ({ navigation }) => {
                     onChangeText={(text) => setDoctorName(text)}
                     value={doctorName}
                     placeholderTextColor="#FFFFFF"
+                    selectionColor="#FFFFFF"
                     inputStyle={{ color: "#FFFFFF" }}
                     inputContainerStyle={{ borderBottomColor: "#FFFFFF" }}
                     leftIcon={{
@@ -95,6 +96,7 @@ const firstQuestionPage = ({ navigation }) => {
                     onChangeText={(text) => setKlinikName(text)}
                     value={klinikName}
                     placeholderTextColor="#FFFFFF"
+                    selectionColor="#FFFFFF"
                     inputStyle={{ color: "#FFFFFF" }}
                     inputContainerStyle={{ borderBottomColor: "#FFFFFF" }}
                     leftIcon={{

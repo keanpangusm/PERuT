@@ -10,7 +10,6 @@ import {
   ImageBackground,
   Dimensions,
 } from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
 import { firebase } from "./firebase/config";
 
 const greetingPage = ({ navigation }) => {
@@ -36,11 +35,9 @@ const greetingPage = ({ navigation }) => {
           style={styles.background}
         >
           <View style={{ flex: 80 }}>
-            <LinearGradient
-              colors={["#000000", "#FFFFFF"]}
-              start={{ x: 1, y: 0 }}
-              end={{ x: 0, y: 1 }}
-              style={[styles.top, { flex: 1 }]}
+            <ImageBackground
+              source={require("../assets/background2.png")}
+              style={styles.top}
             >
               <View style={{ marginTop: 50, marginLeft: 40, marginRight: 40 }}>
                 <Text style={{ color: "#FFFFFF", fontSize: 20 }}>
@@ -61,7 +58,7 @@ const greetingPage = ({ navigation }) => {
                   soalan.
                 </Text>
               </View>
-            </LinearGradient>
+            </ImageBackground>
           </View>
           <View style={{ flex: 20 }}>
             <View
@@ -95,6 +92,7 @@ const styles = StyleSheet.create({
   top: {
     borderBottomLeftRadius: 55,
     borderBottomRightRadius: 55,
+    flex: 1,
   },
   buttonStyle: {
     alignItems: "center",

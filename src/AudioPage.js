@@ -12,7 +12,6 @@ import {
   ImageBackground,
   Dimensions,
 } from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
 import { Video } from "expo-av";
 
 const audioPage = ({ navigation, route }) => {
@@ -45,11 +44,9 @@ const audioPage = ({ navigation, route }) => {
               }}
             >
               <View style={{ flex: 1 }}>
-                <LinearGradient
-                  colors={["#000000", "#FFFFFF"]}
-                  start={{ x: 1, y: 0 }}
-                  end={{ x: 0, y: 1 }}
-                  style={{ flex: 1 }}
+                <ImageBackground
+                  source={require("../assets/background3.png")}
+                  style={styles.background}
                 >
                   <View
                     style={{
@@ -61,14 +58,24 @@ const audioPage = ({ navigation, route }) => {
                   >
                     <Text style={[styles.videoText, { fontSize: 30 }]}>
                       {status.isPlaying
-                        ? "audio sedang dimainkan"
-                        : "audio berhenti seketika"}
+                        ? "Audio sedang dimainkan"
+                        : "Audio berhenti seketika"}
                     </Text>
-                    <Text style={[styles.videoText, { marginTop: 20 }]}>
+                    <Text
+                      style={[
+                        styles.videoText,
+                        { marginTop: 20, color: "#FFFFFF" },
+                      ]}
+                    >
                       Selepas audio habis dimain, anda akan dibawa ke halaman
                       seterusnya.
                     </Text>
-                    <Text style={[styles.videoText, { marginTop: 20 }]}>
+                    <Text
+                      style={[
+                        styles.videoText,
+                        { marginTop: 20, color: "#FFFFFF" },
+                      ]}
+                    >
                       Tekan skrin untuk pengawal audio jika tidak dilihat
                     </Text>
                   </View>
@@ -89,7 +96,7 @@ const audioPage = ({ navigation, route }) => {
                       whenVideoFinish(playBackStatus);
                     }}
                   />
-                </LinearGradient>
+                </ImageBackground>
               </View>
             </Modal>
             <View
@@ -167,7 +174,7 @@ const styles = StyleSheet.create({
   videoText: {
     fontSize: 20,
     textAlign: "center",
-    color: "#FFFFFF",
+    color: "#383838",
   },
 });
 

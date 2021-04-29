@@ -12,13 +12,17 @@ import {
   StatusBar,
   Dimensions,
   ImageBackground,
+  ActivityIndicator,
+  Modal,
 } from "react-native";
 
 const signInPage = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoading, setLoading] = useState(false);
 
   const signIn = () => {
+    setLoading(true);
     firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
@@ -28,6 +32,7 @@ const signInPage = ({ navigation }) => {
         usersRef
           .get()
           .then((firebaseDocument) => {
+            setLoading(false);
             if (!firebaseDocument.exists) {
               alert("User does not exist anymore.");
               return;
@@ -37,10 +42,12 @@ const signInPage = ({ navigation }) => {
             });
           })
           .catch((error) => {
+            setLoading(false);
             alert("error" + error);
           });
       })
       .catch((error) => {
+        setLoading(false);
         alert(error);
       });
   };
@@ -48,6 +55,20 @@ const signInPage = ({ navigation }) => {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <StatusBar />
+      {isLoading ? (
+        <Modal animationType="fade" transparent={true} visible={isLoading}>
+          <View
+            style={{
+              flex: 1,
+              justifyContent: "center",
+              alignItems: "center",
+              backgroundColor: "rgba(0,0,0,0.4)",
+            }}
+          >
+            <ActivityIndicator size="large" color="#FFFFFF" />
+          </View>
+        </Modal>
+      ) : null}
       <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
         <ImageBackground
           source={require("../assets/background.png")}
@@ -66,6 +87,7 @@ const signInPage = ({ navigation }) => {
                   <Input
                     placeholder="Emel"
                     placeholderTextColor="#FFFFFF"
+                    selectionColor="#FFFFFF"
                     inputStyle={{ color: "#FFFFFF" }}
                     inputContainerStyle={{ borderBottomColor: "#FFFFFF" }}
                     onChangeText={(text) => setEmail(text)}
@@ -80,6 +102,7 @@ const signInPage = ({ navigation }) => {
                   <Input
                     placeholder="Password"
                     placeholderTextColor="#FFFFFF"
+                    selectionColor="#FFFFFF"
                     inputStyle={{ color: "#FFFFFF" }}
                     inputContainerStyle={{ borderBottomColor: "#FFFFFF" }}
                     onChangeText={(text) => setPassword(text)}
