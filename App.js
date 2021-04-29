@@ -24,7 +24,7 @@ const app = () => {
     <SafeAreaProvider>
       <NavigationContainer>
         <Stack.Navigator>
-          <Stack.Screen
+          {/* <Stack.Screen
             name="firstPage"
             component={firstPage}
             options={{ headerShown: false }}
@@ -53,13 +53,13 @@ const app = () => {
             name="firstQuestionPage"
             component={firstQuestionPage}
             options={{ headerShown: false }}
-          />
+          /> */}
           <Stack.Screen
             name="secondQuestionPage"
             component={secondQuestionPage}
             options={{ headerShown: false }}
           />
-          <Stack.Screen
+          {/* <Stack.Screen
             name="thirdQuestionPage"
             component={thirdQuestionPage}
             options={{ headerShown: false }}
@@ -93,12 +93,12 @@ const app = () => {
             name="feedBackPage"
             component={feedBackPage}
             options={{ headerShown: false }}
-          />
-          <Stack.Screen
+          /> */}
+          {/* <Stack.Screen
             name="mainMenuPage"
             component={mainMenuPage}
             options={{ headerShown: false }}
-          />
+          /> */}
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>
