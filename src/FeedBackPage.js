@@ -83,6 +83,7 @@ const feedBackPage = ({ navigation }) => {
               </Text>
               <Input
                 placeholderTextColor="#FFFFFF"
+                selectionColor="#FFFFFF"
                 inputStyle={{ color: "#FFFFFF" }}
                 inputContainerStyle={{ borderBottomColor: "#FFFFFF" }}
                 style={{ marginTop: 20 }}

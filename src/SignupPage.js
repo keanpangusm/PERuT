@@ -115,6 +115,7 @@ const Details = () => {
       <Input
         placeholder="Nama"
         placeholderTextColor="#FFFFFF"
+        selectionColor="#FFFFFF"
         inputStyle={{ color: "#FFFFFF" }}
         inputContainerStyle={{ borderBottomColor: "#FFFFFF" }}
         onChangeText={(text) => setName(text)}
@@ -129,6 +130,7 @@ const Details = () => {
       <Input
         placeholder="Emel"
         placeholderTextColor="#FFFFFF"
+        selectionColor="#FFFFFF"
         inputStyle={{ color: "#FFFFFF" }}
         inputContainerStyle={{ borderBottomColor: "#FFFFFF" }}
         onChangeText={(text) => setEmail(text)}
@@ -143,6 +145,7 @@ const Details = () => {
       <Input
         placeholder="Telephone Bimbit"
         placeholderTextColor="#FFFFFF"
+        selectionColor="#FFFFFF"
         inputStyle={{ color: "#FFFFFF" }}
         inputContainerStyle={{ borderBottomColor: "#FFFFFF" }}
         onChangeText={(text) =>
@@ -160,6 +163,7 @@ const Details = () => {
       <Input
         placeholder="Password"
         placeholderTextColor="#FFFFFF"
+        selectionColor="#FFFFFF"
         inputStyle={{ color: "#FFFFFF" }}
         inputContainerStyle={{ borderBottomColor: "#FFFFFF" }}
         onChangeText={(text) => setPassword(text)}
