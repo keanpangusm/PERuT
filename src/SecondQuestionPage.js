@@ -1314,7 +1314,7 @@ const secondQuestionPage = ({ navigation }) => {
                 </View>
 
                 <Text style={[styles.smallTitle, { marginTop: 40 }]}>
-                  Rome Criteria
+                  ROME Criteria
                 </Text>
 
                 <View style={styles.questionContainer}>
@@ -2287,6 +2287,14 @@ const secondQuestionPage = ({ navigation }) => {
                   >
                     <Text style={[styles.buttonText, { color: "white" }]}>
                       Hantar
+                    </Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={{ alignItems: "center", marginTop: 20 }}
+                    onPress={() => navigation.navigate("thirdQuestionPage")}
+                  >
+                    <Text style={[styles.buttonText, { color: "#FFFFFF" }]}>
+                      Abaikan
                     </Text>
                   </TouchableOpacity>
                 </View>
