@@ -18,13 +18,15 @@ import introPage from "./src/IntroPage";
 import audioPage from "./src/AudioPage";
 import feedBackPage from "./src/FeedBackPage";
 import mainMenuPage from "./src/MainMenuPage";
+import articlePage from "./src/ArticlePage";
+import chatPage from "./src/ChatPage";
 
 const app = () => {
   return (
     <SafeAreaProvider>
       <NavigationContainer>
         <Stack.Navigator>
-          {/* <Stack.Screen
+          <Stack.Screen
             name="firstPage"
             component={firstPage}
             options={{ headerShown: false }}
@@ -53,13 +55,13 @@ const app = () => {
             name="firstQuestionPage"
             component={firstQuestionPage}
             options={{ headerShown: false }}
-          /> */}
+          />
           <Stack.Screen
             name="secondQuestionPage"
             component={secondQuestionPage}
             options={{ headerShown: false }}
           />
-          {/* <Stack.Screen
+          <Stack.Screen
             name="thirdQuestionPage"
             component={thirdQuestionPage}
             options={{ headerShown: false }}
@@ -93,12 +95,22 @@ const app = () => {
             name="feedBackPage"
             component={feedBackPage}
             options={{ headerShown: false }}
-          /> */}
-          {/* <Stack.Screen
+          />
+          <Stack.Screen
             name="mainMenuPage"
             component={mainMenuPage}
             options={{ headerShown: false }}
-          /> */}
+          />
+          <Stack.Screen
+            name="articlePage"
+            component={articlePage}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="chatPage"
+            component={chatPage}
+            options={{ headerShown: false }}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>
