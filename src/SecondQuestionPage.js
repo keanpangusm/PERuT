@@ -73,6 +73,7 @@ const secondQuestionPage = ({ navigation }) => {
   const [masalah11, setMasalah11] = useState(false);
   const [masalah12, setMasalah12] = useState(false);
   const [masalah13, setMasalah13] = useState(false);
+  const [masalah14, setMasalah14] = useState(false);
   const [najis1, setNajis1] = useState("");
   const [najis2, setNajis2] = useState("");
   const [najis3, setNajis3] = useState("");
