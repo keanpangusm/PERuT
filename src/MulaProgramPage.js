@@ -79,6 +79,7 @@ const mulaProgramPage = ({ navigation }) => {
                   onPress={() =>
                     navigation.navigate("audioPage", {
                       VideoID: videoId,
+                      Session: 1,
                     })
                   }
                 >
