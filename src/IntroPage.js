@@ -121,9 +121,12 @@ const introPage = ({ navigation }) => {
               <View style={{ alignItems: "center", marginTop: 40 }}>
                 <TouchableOpacity
                   style={[styles.buttonStyle, { backgroundColor: "#34433C" }]}
-                  onPress={() => navigation.navigate("audioPage", {
-                    VideoID: videoId,
-                  })}
+                  onPress={() =>
+                    navigation.navigate("audioPage", {
+                      VideoID: videoId,
+                      Session: 1,
+                    })
+                  }
                 >
                   <Text style={[styles.buttonText, { color: "white" }]}>
                     Teruskan

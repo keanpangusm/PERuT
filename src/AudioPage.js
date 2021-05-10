@@ -16,6 +16,7 @@ import { Video } from "expo-av";
 import { firebase } from "./firebase/config";
 
 const audioPage = ({ navigation, route }) => {
+  const session = route.params["Session"];
   const video = useRef(null);
   const [show, setShow] = useState(false);
   const [status, setStatus] = useState({});
