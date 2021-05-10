@@ -16,7 +16,7 @@ const guidePage = ({ navigation }) => {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <StatusBar />
-      <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
+      <View style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
         <ImageBackground
           source={require("../assets/background.png")}
           style={styles.background}
@@ -78,7 +78,7 @@ const guidePage = ({ navigation }) => {
             </View>
           </ScrollView>
         </ImageBackground>
-      </ScrollView>
+      </View>
     </SafeAreaView>
   );
 };

@@ -16,8 +16,10 @@ import ProgressBar from "react-native-progress/Bar";
 import CheckBox from "@react-native-community/checkbox";
 import { Input } from "react-native-elements";
 import { Picker } from "@react-native-picker/picker";
+import { firebase } from "./firebase/config";
 
 const secondQuestionPage = ({ navigation }) => {
+  const userid = firebase.auth().currentUser.uid;
   const [umur, setUmur] = useState("");
   const [jantina, setJantina] = useState("Perempuan");
   const [bangsa, setBangsa] = useState("Melayu");
@@ -100,10 +102,92 @@ const secondQuestionPage = ({ navigation }) => {
   const [muntah, setMuntah] = useState(false);
   const [kekerapanMuntah, setKekerapanMuntah] = useState("");
 
+  const uploadAnswer = () =>{
+    firebase
+        .database()
+        .ref("/Users/" + userid + "/SecondQuestion/")
+        .set({
+          umur,
+          jantina,
+          bangsa,
+          tahapPembelajaran,
+          pekerjaan,
+          detailPekerjaan,
+          statusPerkahwinan,
+          pendapatan,
+          pernahMengalamiKembungPerut,
+          waktu,
+          kaitDenganPemakanan, 
+          detailPemakanan, 
+          gangguHidup,
+          kurangBeratBadan, 
+          simptomLain,
+          detailSimptomLain,
+          pengyakitLain,
+          detailPengyakitLain,
+          ubat,
+          tahapGangguHidup,
+          tahapKualitiTidur,
+          ahliKeluarga,
+          tahapStress,
+          kaitDenganKitaranHaid,
+          pembedahan,
+          detailPembedahan,
+          gejala1,
+          gejala2,
+          gejala3,
+          gejala4,
+          tahapKeterukanSimptom,
+          tahapKesakitanPerut,
+          pernahMengalamiDistensi,
+          pernahMengalamiKembung,
+          jawapanSesuaiKeadaan,
+          kekerapan,
+          lebih6Bulan,
+          masalah1, 
+          masalah2,
+          masalah3,
+          masalah4,
+          masalah5,
+          masalah6, 
+          masalah7,
+          masalah8, 
+          masalah9, 
+          masalah10, 
+          masalah11,
+          masalah12, 
+          masalah13, 
+          najis1,
+          najis2, 
+          najis3,
+          najis4,
+          najis5, 
+          najis6,
+          najis7, 
+          pedih,
+          kekerapanPedih,
+          cepatKenyang,
+          kekerapanCepatKenyang,
+          kenyangLepasMakan,
+          kekerapanKenyangLepasMakan,
+          sakitUluHati,
+          kekerapanSakitUluHati,
+          pedihUluHati,
+          kekerapanPedihUluHati,
+          perutKembung,
+          kekerapanPerutKembung,
+          loya,
+          kekerapanLoya,
+          muntah,
+          kekerapanMuntah
+        });
+    navigation.navigate("thirdQuestionPage")
+  }
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <StatusBar />
-      <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1 }}>
+      <View showsVerticalScrollIndicator={false} style={{ flex: 1 }}>
         <ImageBackground
           source={require("../assets/background.png")}
           style={styles.background}
@@ -2284,7 +2368,7 @@ const secondQuestionPage = ({ navigation }) => {
                 <View style={{ alignItems: "center", marginTop: 30 }}>
                   <TouchableOpacity
                     style={[styles.buttonStyle, { backgroundColor: "#34433C" }]}
-                    onPress={() => navigation.navigate("thirdQuestionPage")}
+                    onPress={() => uploadAnswer()}
                   >
                     <Text style={[styles.buttonText, { color: "white" }]}>
                       Hantar
@@ -2303,7 +2387,7 @@ const secondQuestionPage = ({ navigation }) => {
             </View>
           </ScrollView>
         </ImageBackground>
-      </ScrollView>
+      </View>
     </SafeAreaView>
   );
 };

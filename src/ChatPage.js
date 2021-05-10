@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useEffect ,useRef } from "react";
 import "react-native-gesture-handler";
 import {
   StyleSheet,
@@ -12,15 +12,36 @@ import {
   Dimensions,
   TextInput,
 } from "react-native";
+import { firebase } from "./firebase/config";
 
 const chatPage = ({ navigation }) => {
   const scroll = useRef();
-  const [newChat, setNewChat] = useState(false);
+  const [newChat, setNewChat] = useState(true);
+  const userid = firebase.auth().currentUser.uid;
+  const [chats,setChats] = useState([])
+  const [message,setMessage] = useState('')
+
+  useEffect(() => {
+    firebase
+      .database()
+      .ref("/Chats/" + userid )
+      .on("value", (snapshot) => {
+        const firebasedata = snapshot.val();
+        try{
+          if (firebasedata.length>0){
+            setNewChat(false)
+            setChats(firebasedata)
+          }
+        }catch(err){
+          console.log(err)
+        }
+    })
+  }, []);
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <StatusBar />
-      <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
+      <View style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
         <ImageBackground
           source={require("../assets/background3.png")}
           style={styles.background}
@@ -100,42 +121,28 @@ const chatPage = ({ navigation }) => {
               scroll.current.scrollToEnd({ animated: false });
             }}
           >
-            <View style={{ alignItems: "flex-end" }}>
-              <View style={styles.sender}>
-                <Text style={{ fontSize: 17, color: "#FFFFFF" }}>
-                  Hello, Vincent
-                </Text>
-              </View>
-            </View>
-            <View style={{ alignItems: "flex-start" }}>
-              <View style={styles.receiver}>
-                <Text style={{ fontSize: 17 }}>Hi</Text>
-              </View>
-            </View>
-            <View style={{ alignItems: "flex-end" }}>
-              <View style={styles.sender}>
-                <Text style={{ fontSize: 17, color: "#FFFFFF" }}>
-                  Hello, Vincent
-                </Text>
-              </View>
-            </View>
-            <View style={{ alignItems: "flex-end" }}>
-              <View style={styles.sender}>
-                <Text style={{ fontSize: 17, color: "#FFFFFF" }}>
-                  Hello, Vincent
-                </Text>
-              </View>
-            </View>
-            <View style={{ alignItems: "flex-end" }}>
-              <View style={styles.sender}>
-                <Text style={{ fontSize: 17, color: "#FFFFFF" }}>
-                  Hello, Vincent
-                </Text>
-              </View>
-            </View>
+            {
+              chats.map((chat, index) => (
+                chat['Sender']?
+                <View style={{ alignItems: "flex-end" }}>
+                  <View style={styles.sender}>
+                    <Text style={{ fontSize: 17, color: "#FFFFFF" }}>
+                      {chat['Text']}
+                    </Text>
+                  </View>
+                </View>:
+                <View style={{ alignItems: "flex-start" }}>
+                  <View style={styles.receiver}>
+                    <Text style={{ fontSize: 17 }}>{chat['Text']}</Text>
+                  </View>
+                </View>
+              ))
+            }
           </ScrollView>
           <View style={{ flexDirection: "row", bottom: 0, marginTop: 10 }}>
             <TextInput
+              onChangeText={setMessage}
+              value={message}
               multiline={true}
               placeholder="Masukkan message"
               style={{
@@ -151,12 +158,27 @@ const chatPage = ({ navigation }) => {
                 width: Dimensions.get("window").width - 70,
               }}
             />
-            <TouchableOpacity>
+            <TouchableOpacity onPress={()=>{
+              
+              if (message!=''){
+                firebase
+                  .database()
+                  .ref("/Chats/" + userid + "/"+String(chats.length))
+                  .set({
+                    Sender:true,
+                    Text:message
+                  });
+                setMessage('')
+              }else{
+                alert('You cannot send empty message!')
+              }
+              
+            }}>
               <Text style={{ fontSize: 20, color: "#FFFFFF" }}>send</Text>
             </TouchableOpacity>
           </View>
         </ImageBackground>
-      </ScrollView>
+      </View>
     </SafeAreaView>
   );
 };

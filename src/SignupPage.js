@@ -58,7 +58,11 @@ const Details = () => {
             Email: email,
             Name: name,
             Phone: phNo,
-            First: "yes",
+            First: true,
+            session: 1,
+            articleRead: false, 
+            audioListen: false,
+            Complete:{Record:false}
           };
           const usersRef = firebase.database().ref("Users/" + uid);
           usersRef

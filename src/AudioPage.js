@@ -13,16 +13,22 @@ import {
   Dimensions,
 } from "react-native";
 import { Video } from "expo-av";
+import { firebase } from "./firebase/config";
 
 const audioPage = ({ navigation, route }) => {
   const session = route.params["Session"];
   const video = useRef(null);
   const [show, setShow] = useState(false);
   const [status, setStatus] = useState({});
+  const userid = firebase.auth().currentUser.uid;
 
   const whenVideoFinish = (playBackStatus) => {
     if (playBackStatus.didJustFinish) {
       console.log("video finished");
+      firebase
+        .database()
+        .ref("/Users/" + userid + "/audioListen/")
+        .set(true);
       navigation.navigate("feedBackPage");
     }
   };
@@ -30,7 +36,7 @@ const audioPage = ({ navigation, route }) => {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <StatusBar />
-      <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1 }}>
+      <View showsVerticalScrollIndicator={false} style={{ flex: 1 }}>
         <ImageBackground
           source={require("../assets/background.png")}
           style={styles.background}
@@ -143,7 +149,7 @@ const audioPage = ({ navigation, route }) => {
             </View>
           </ScrollView>
         </ImageBackground>
-      </ScrollView>
+      </View>
     </SafeAreaView>
   );
 };
