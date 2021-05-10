@@ -19,6 +19,7 @@ import ProgressBar from "react-native-progress/Bar";
 import MenuDrawer from "react-native-side-drawer";
 import { Picker } from "@react-native-picker/picker";
 import { Input } from "react-native-elements";
+import { firebase } from "./firebase/config";
 
 const mainMenuPage = ({ navigation }) => {
   const [drawer, setDrawer] = useState(false);
@@ -37,16 +38,16 @@ const mainMenuPage = ({ navigation }) => {
   const [tempAmOrPm, setTempAmOrPm] = useState("");
 
   //change client data
-  const [name, setName] = useState("testingtesting");
-  const [email, setEmail] = useState("abc@gamil.com");
-  const [phNo, setPhNo] = useState("321");
+  const [name, setName] = useState("-");
+  const [email, setEmail] = useState("-");
+  const [phNo, setPhNo] = useState("-");
   const [password, setPassword] = useState("32131");
 
   //for session
   const [audioListened, setAudioListened] = useState(false);
   const [articleRead, setArticleRead] = useState(false);
   const [percent, setPercent] = useState(0);
-  const [session, setSession] = useState(4);
+  const [session, setSession] = useState(1);
 
   //survey
   const [firstSurvey, setFirstSurvey] = useState(false);
@@ -54,9 +55,166 @@ const mainMenuPage = ({ navigation }) => {
   const [thirdSurvey, setThirdSurvey] = useState(false);
   const [survey, setSurvey] = useState(false);
 
+  const [videoId, setVideoID] = useState(1);
+  const userid = firebase.auth().currentUser.uid;
+
+  const uploadReminder = () =>{
+    var h = parseInt(tempHour);
+    var m = parseInt(tempMinute);
+    if (tempAmOrPm == "pm") {
+      h += 12;
+    }
+    m = m + h * 60;
+
+    console.log(m)
+    firebase
+      .database()
+      .ref("/Users/" + userid + "/Reminder/")
+      .set(m);
+  }
+
+  const editUser=()=>{
+    firebase
+      .database()
+      .ref("/Users/" + userid + "/Name/")
+      .set(name);
+    firebase
+      .database()
+      .ref("/Users/" + userid + "/Phone/")
+      .set(phNo);
+  }
+
+  useEffect(() => {
+    firebase
+      .database()
+      .ref("/Users/" + userid + "/session/")
+      .once("value", (snapshot) => {
+        const firebasedata = snapshot.val();
+        setSession(firebasedata);
+
+        if (firebasedata == 13){
+          firebase
+            .database()
+            .ref("/Users/" + userid + "/CompleteSessionsTime/")
+            .once("value", (snapshot) => {
+              const firebasedataCompleteTime = snapshot.val();
+              var currentTime = new Date()
+              currentTime.setMonth(currentTime.getMonth() + 1)
+              if (firebasedataCompleteTime>currentTime.getTime()){
+                setSurvey(true)
+              }
+            });
+        }
+      });
+    firebase
+      .database()
+      .ref("/Users/" + userid + "/articleRead/")
+      .on("value", (snapshot) => {
+        const firebasedata = snapshot.val();
+        setArticleRead(firebasedata);
+      });
+    firebase
+      .database()
+      .ref("/Users/" + userid + "/audioListen/")
+      .on("value", (snapshot) => {
+        const firebasedata = snapshot.val();
+        setAudioListened(firebasedata);
+      });
+    firebase
+      .database()
+      .ref("/Users/" + userid + "/Reminder/")
+      .once("value", (snapshot) => {
+        const firebasedata = snapshot.val();
+        setTime(firebasedata);
+      });
+    firebase
+      .database()
+      .ref("/Users/" + userid + "/Name/")
+      .once("value", (snapshot) => {
+        const firebasedata = snapshot.val();
+        setName(firebasedata);
+      });
+    firebase
+      .database()
+      .ref("/Users/" + userid + "/Email/")
+      .once("value", (snapshot) => {
+        const firebasedata = snapshot.val();
+        setEmail(firebasedata);
+      });
+    firebase
+      .database()
+      .ref("/Users/" + userid + "/Phone/")
+      .once("value", (snapshot) => {
+        const firebasedata = snapshot.val();
+        setPhNo(firebasedata);
+      });
+    firebase
+      .database()
+      .ref("/Admin/Video/")
+      .once("value", (snapshot) => {
+        const firebasedata = snapshot.val();
+        setVideoID(firebasedata);
+      });
+  }, []);
+
   useEffect(() => {
     if (articleRead && audioListened) {
       setPercent(100);
+      firebase
+      .database()
+      .ref("/Users/" + userid + "/Complete/Record")
+      .once("value", (snapshot) => {
+        const firebasedata = snapshot.val();
+        if (firebasedata == false){
+          firebase
+            .database()
+            .ref("/Users/" + userid + "/Complete/Time")
+            .set(new Date().getTime());
+          firebase
+            .database()
+            .ref("/Users/" + userid + "/Complete/Record")
+            .set(true);
+        }else{
+          firebase
+            .database()
+            .ref("/Users/" + userid + "/Complete/Time")
+            .once("value", (snapshot) => {
+              const firebasedataTime = snapshot.val();
+              var currentTime = new Date()
+              currentTime.setHours(currentTime.getHours() + 48)
+              if (firebasedataTime>currentTime.getTime()){
+                if (session == 12){
+                  firebase
+                  .database()
+                  .ref("/Users/" + userid + "/CompleteSessionsTime")
+                  .set(new Date().getTime());
+                }
+                firebase
+                  .database()
+                  .ref("/Users/" + userid + "/Complete/Record")
+                  .set(false);
+                firebase
+                  .database()
+                  .ref("/Users/" + userid + "/session")
+                  .set(session+1);
+                setSession(session+1)
+                firebase
+                  .database()
+                  .ref("/Users/" + userid + "/articleRead")
+                  .set(false);
+                setArticleRead(false)
+                firebase
+                  .database()
+                  .ref("/Users/" + userid + "/audioListen")
+                  .set(false);
+                setArticleRead(false)
+              }else{
+                console.log('Wait 48 Hours')
+              }
+            })
+        }
+      });
+      
     } else if (articleRead && !audioListened) {
       setPercent(50);
     } else if (!articleRead && audioListened) {
@@ -64,7 +222,7 @@ const mainMenuPage = ({ navigation }) => {
     } else {
       setPercent(0);
     }
-  });
+  }, [articleRead,audioListened]);
 
   const showTimePicker = () => {
     setTempTime();
@@ -190,8 +348,8 @@ const mainMenuPage = ({ navigation }) => {
           </Text>
 
           <View style={{ marginLeft: 10, marginTop: 20 }}>
-            <Text style={{ fontSize: 20 }}>Vincent</Text>
-            <Text style={{ fontSize: 15 }}>vincenttee1996@gmail.com</Text>
+            <Text style={{ fontSize: 20 }}>{name}</Text>
+            <Text style={{ fontSize: 15 }}>{email}</Text>
 
             <View
               style={{
@@ -407,6 +565,7 @@ const mainMenuPage = ({ navigation }) => {
                       <TouchableOpacity
                         style={styles.buttonStyle2}
                         onPress={() => {
+                          uploadReminder();
                           setTimeString(
                             tempHour + ":" + tempMinute + " " + tempAmOrPm
                           );
@@ -481,16 +640,6 @@ const mainMenuPage = ({ navigation }) => {
                         />
 
                         <Input
-                          placeholder={email}
-                          onChangeText={(text) => setEmail(text)}
-                          value={email}
-                          leftIcon={{
-                            type: "zocial",
-                            name: "email",
-                          }}
-                        />
-
-                        <Input
                           placeholder={phNo}
                           onChangeText={(text) =>
                             setPhNo(
@@ -505,21 +654,13 @@ const mainMenuPage = ({ navigation }) => {
                           }}
                         />
 
-                        <Input
-                          placeholder={password}
-                          onChangeText={(text) => setPassword(text)}
-                          value={password}
-                          leftIcon={{
-                            type: "fontawesome",
-                            name: "lock",
-                          }}
-                          secureTextEntry={true}
-                        />
-
                         <View style={{ alignItems: "center", marginTop: 25 }}>
                           <TouchableOpacity
                             style={styles.buttonStyle2}
-                            onPress={() => setShowDetails(false)}
+                            onPress={() => {
+                              editUser()
+                              setShowDetails(false)
+                            }}
                           >
                             <Text
                               style={[styles.buttonText, { color: "#FFFFFF" }]}
@@ -648,6 +789,11 @@ const mainMenuPage = ({ navigation }) => {
                             ]}
                             disabled={session >= 1 ? false : true}
                             onPress={() => {
+                              firebase
+                                .database()
+                                .ref("/Users/" + userid + "/articleRead/")
+                                .set(true);
+                              setArticleRead(true)
                               setShowSession(false);
                               session >= 1
                                 ? navigation.navigate("articlePage", {
@@ -2047,13 +2193,18 @@ const mainMenuPage = ({ navigation }) => {
                 <View style={{ alignItems: "center", marginTop: 30 }}>
                   <TouchableOpacity
                     style={[styles.buttonStyle, { backgroundColor: "#34433C" }]}
-                    onPress={() =>
+                    onPress={() => {
+                      firebase
+                        .database()
+                        .ref("/Users/" + userid + "/articleRead/")
+                        .set(true);
+                      setArticleRead(true)
                       session == 13
                         ? navigation.navigate("articlePage", { Session: 12 })
                         : navigation.navigate("articlePage", {
                             Session: session,
                           })
-                    }
+                    }}
                   >
                     <Text style={[styles.buttonText, { color: "white" }]}>
                       1. {session == 1 ? "PERuT®" : null}

@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState,useEffect} from "react";
 import "react-native-gesture-handler";
 import {
   StyleSheet,
@@ -11,12 +11,26 @@ import {
   ImageBackground,
   Dimensions,
 } from "react-native";
+import { firebase } from "./firebase/config";
 
 const introPage = ({ navigation }) => {
+
+  const [videoId, setVideoID] = useState(1);
+
+  useEffect(() => {
+    firebase
+      .database()
+      .ref("/Admin/Video/")
+      .once("value", (snapshot) => {
+        const firebasedata = snapshot.val();
+        setVideoID(firebasedata);
+      });
+  }, []);
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <StatusBar />
-      <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1 }}>
+      <View showsVerticalScrollIndicator={false} style={{ flex: 1 }}>
         <ImageBackground
           source={require("../assets/background.png")}
           style={styles.background}
@@ -107,7 +121,9 @@ const introPage = ({ navigation }) => {
               <View style={{ alignItems: "center", marginTop: 40 }}>
                 <TouchableOpacity
                   style={[styles.buttonStyle, { backgroundColor: "#34433C" }]}
-                  onPress={() => navigation.navigate("audioPage")}
+                  onPress={() => navigation.navigate("audioPage", {
+                    VideoID: videoId,
+                  })}
                 >
                   <Text style={[styles.buttonText, { color: "white" }]}>
                     Teruskan
@@ -117,7 +133,7 @@ const introPage = ({ navigation }) => {
             </View>
           </ScrollView>
         </ImageBackground>
-      </ScrollView>
+      </View>
     </SafeAreaView>
   );
 };
