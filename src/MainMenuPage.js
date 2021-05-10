@@ -43,10 +43,10 @@ const mainMenuPage = ({ navigation }) => {
   const [password, setPassword] = useState("32131");
 
   //for session
-  const [audioListened, setAudioListened] = useState(false);
-  const [articleRead, setArticleRead] = useState(false);
+  const [audioListened, setAudioListened] = useState(true);
+  const [articleRead, setArticleRead] = useState(true);
   const [percent, setPercent] = useState(0);
-  const [session, setSession] = useState(4);
+  const [session, setSession] = useState(1);
 
   //survey
   const [firstSurvey, setFirstSurvey] = useState(false);
@@ -2078,6 +2078,7 @@ const mainMenuPage = ({ navigation }) => {
                     onPress={() =>
                       navigation.navigate("audioPage", {
                         VideoID: videoId,
+                        Session: session,
                       })
                     }
                   >
