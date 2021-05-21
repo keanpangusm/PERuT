@@ -1,6 +1,6 @@
 import React from "react";
 import "react-native-gesture-handler";
-import { LogBox } from 'react-native';
+import { LogBox } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -29,7 +29,7 @@ const app = () => {
     <SafeAreaProvider>
       <NavigationContainer>
         <Stack.Navigator>
-          <Stack.Screen
+          {/* <Stack.Screen
             name="firstPage"
             component={firstPage}
             options={{ headerShown: false }}
@@ -98,7 +98,7 @@ const app = () => {
             name="feedBackPage"
             component={feedBackPage}
             options={{ headerShown: false }}
-          />
+          /> */}
           <Stack.Screen
             name="mainMenuPage"
             component={mainMenuPage}
