@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import "react-native-gesture-handler";
 import {
   StyleSheet,
@@ -14,7 +14,6 @@ import {
 import { firebase } from "./firebase/config";
 
 const introPage = ({ navigation }) => {
-
   const [videoId, setVideoID] = useState(1);
 
   useEffect(() => {

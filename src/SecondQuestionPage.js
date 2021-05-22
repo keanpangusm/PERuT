@@ -102,87 +102,88 @@ const secondQuestionPage = ({ navigation }) => {
   const [muntah, setMuntah] = useState(false);
   const [kekerapanMuntah, setKekerapanMuntah] = useState("");
 
-  const uploadAnswer = () =>{
+  const uploadAnswer = () => {
     firebase
-        .database()
-        .ref("/Users/" + userid + "/SecondQuestion/")
-        .set({
-          umur,
-          jantina,
-          bangsa,
-          tahapPembelajaran,
-          pekerjaan,
-          detailPekerjaan,
-          statusPerkahwinan,
-          pendapatan,
-          pernahMengalamiKembungPerut,
-          waktu,
-          kaitDenganPemakanan, 
-          detailPemakanan, 
-          gangguHidup,
-          kurangBeratBadan, 
-          simptomLain,
-          detailSimptomLain,
-          pengyakitLain,
-          detailPengyakitLain,
-          ubat,
-          tahapGangguHidup,
-          tahapKualitiTidur,
-          ahliKeluarga,
-          tahapStress,
-          kaitDenganKitaranHaid,
-          pembedahan,
-          detailPembedahan,
-          gejala1,
-          gejala2,
-          gejala3,
-          gejala4,
-          tahapKeterukanSimptom,
-          tahapKesakitanPerut,
-          pernahMengalamiDistensi,
-          pernahMengalamiKembung,
-          jawapanSesuaiKeadaan,
-          kekerapan,
-          lebih6Bulan,
-          masalah1, 
-          masalah2,
-          masalah3,
-          masalah4,
-          masalah5,
-          masalah6, 
-          masalah7,
-          masalah8, 
-          masalah9, 
-          masalah10, 
-          masalah11,
-          masalah12, 
-          masalah13, 
-          najis1,
-          najis2, 
-          najis3,
-          najis4,
-          najis5, 
-          najis6,
-          najis7, 
-          pedih,
-          kekerapanPedih,
-          cepatKenyang,
-          kekerapanCepatKenyang,
-          kenyangLepasMakan,
-          kekerapanKenyangLepasMakan,
-          sakitUluHati,
-          kekerapanSakitUluHati,
-          pedihUluHati,
-          kekerapanPedihUluHati,
-          perutKembung,
-          kekerapanPerutKembung,
-          loya,
-          kekerapanLoya,
-          muntah,
-          kekerapanMuntah
-        });
-    navigation.navigate("thirdQuestionPage")
-  }
+      .database()
+      .ref("/Users/" + userid + "/SecondQuestion/")
+      .set({
+        umur,
+        jantina,
+        bangsa,
+        tahapPembelajaran,
+        pekerjaan,
+        detailPekerjaan,
+        statusPerkahwinan,
+        pendapatan,
+        pernahMengalamiKembungPerut,
+        waktu,
+        kaitDenganPemakanan,
+        detailPemakanan,
+        gangguHidup,
+        kurangBeratBadan,
+        simptomLain,
+        detailSimptomLain,
+        pengyakitLain,
+        detailPengyakitLain,
+        ubat,
+        tahapGangguHidup,
+        tahapKualitiTidur,
+        ahliKeluarga,
+        tahapStress,
+        kaitDenganKitaranHaid,
+        pembedahan,
+        detailPembedahan,
+        gejala1,
+        gejala2,
+        gejala3,
+        gejala4,
+        tahapKeterukanSimptom,
+        tahapKesakitanPerut,
+        pernahMengalamiDistensi,
+        pernahMengalamiKembung,
+        jawapanSesuaiKeadaan,
+        kekerapan,
+        lebih6Bulan,
+        masalah1,
+        masalah2,
+        masalah3,
+        masalah4,
+        masalah5,
+        masalah6,
+        masalah7,
+        masalah8,
+        masalah9,
+        masalah10,
+        masalah11,
+        masalah12,
+        masalah13,
+        masalah14,
+        najis1,
+        najis2,
+        najis3,
+        najis4,
+        najis5,
+        najis6,
+        najis7,
+        pedih,
+        kekerapanPedih,
+        cepatKenyang,
+        kekerapanCepatKenyang,
+        kenyangLepasMakan,
+        kekerapanKenyangLepasMakan,
+        sakitUluHati,
+        kekerapanSakitUluHati,
+        pedihUluHati,
+        kekerapanPedihUluHati,
+        perutKembung,
+        kekerapanPerutKembung,
+        loya,
+        kekerapanLoya,
+        muntah,
+        kekerapanMuntah,
+      });
+    navigation.navigate("thirdQuestionPage");
+  };
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -1935,6 +1936,23 @@ const secondQuestionPage = ({ navigation }) => {
                           }}
                         />
                       </View>
+                      <Text style={styles.checkBoxText}>
+                        {"Gastroenteritis (Jangkitan perut)"}
+                      </Text>
+                    </View>
+                    <View style={{ flexDirection: "row" }}>
+                      <View style={{ justifyContent: "center" }}>
+                        <CheckBox
+                          value={masalah14}
+                          onValueChange={setMasalah14}
+                          tintColor={{ true: "#FFFFFF", false: "#FFFFFF" }}
+                          tintColors={{ true: "#FFFFFF", false: "#FFFFFF" }}
+                          style={{
+                            transform: [{ scaleX: 1.1 }, { scaleY: 1.1 }],
+                            paddingTop: 40,
+                          }}
+                        />
+                      </View>
                       <Text style={styles.checkBoxText}>{"Tiada"}</Text>
                     </View>
                   </View>
@@ -1954,7 +1972,8 @@ const secondQuestionPage = ({ navigation }) => {
                       />
                     </View>
                     <Text style={{ fontSize: 20, color: "#FFFFFF" }}>
-                      Seperate hard lumps, like nuts (hard to pass):
+                      Ketulan keras yang terpisah seperti kacang (sukar
+                      dikeluarkan)
                     </Text>
                     <Input
                       placeholderTextColor="#FFFFFF"
@@ -1974,7 +1993,7 @@ const secondQuestionPage = ({ navigation }) => {
                       />
                     </View>
                     <Text style={{ fontSize: 20, color: "#FFFFFF" }}>
-                      Sausage-shaped but lumpy:
+                      Berbentuk seperti sosej tetapi berketulan
                     </Text>
                     <Input
                       placeholderTextColor="#FFFFFF"
@@ -1993,7 +2012,7 @@ const secondQuestionPage = ({ navigation }) => {
                       />
                     </View>
                     <Text style={{ fontSize: 20, color: "#FFFFFF" }}>
-                      Like a sausage but with cracks on the surface:
+                      Seperti sosej tetapi terdapat rekahan pada permukaannya
                     </Text>
                     <Input
                       placeholderTextColor="#FFFFFF"
@@ -2012,7 +2031,7 @@ const secondQuestionPage = ({ navigation }) => {
                       />
                     </View>
                     <Text style={{ fontSize: 20, color: "#FFFFFF" }}>
-                      Like a sausage or snake, smooth and soft:
+                      Bergumpai-gumpai lembut dengan potongan tepi yang jelas
                     </Text>
                     <Input
                       placeholderTextColor="#FFFFFF"
@@ -2031,7 +2050,8 @@ const secondQuestionPage = ({ navigation }) => {
                       />
                     </View>
                     <Text style={{ fontSize: 20, color: "#FFFFFF" }}>
-                      Soft blobs with clear-cut edges:
+                      Najis yang gebu dan ringan dengan bahagian tepi yang
+                      bergeris, najis yang lembik
                     </Text>
                     <Input
                       placeholderTextColor="#FFFFFF"
@@ -2050,7 +2070,7 @@ const secondQuestionPage = ({ navigation }) => {
                       />
                     </View>
                     <Text style={{ fontSize: 20, color: "#FFFFFF" }}>
-                      Fluffy pieces with ragged edges, a mushy stool:
+                      Berair, tiada cebisan pepejal
                     </Text>
                     <Input
                       placeholderTextColor="#FFFFFF"
@@ -2069,7 +2089,7 @@ const secondQuestionPage = ({ navigation }) => {
                       />
                     </View>
                     <Text style={{ fontSize: 20, color: "#FFFFFF" }}>
-                      Watery, no solid pieces, entirely liquid:
+                      Berair sepenuhnya
                     </Text>
                     <Input
                       placeholderTextColor="#FFFFFF"
@@ -2083,6 +2103,15 @@ const secondQuestionPage = ({ navigation }) => {
                     />
                   </View>
                 </View>
+
+                <Text
+                  style={{ fontSize: 20, color: "#FFFFFF", marginBottom: 5 }}
+                >
+                  Membuang air besar dengan najis Jenis 1 atau 2 dan juga Jenis
+                  6 atau 7 dalam gambar di atas boleh dianggap sebagai tidak
+                  normal. Jenis 1 atau 2 bermakna anda sembelit, dan Jenis 6
+                  atau 7 bermakna anda mengalami cirit-birit.
+                </Text>
 
                 <View style={styles.questionContainer}>
                   <Text style={styles.question}>

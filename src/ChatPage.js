@@ -1,4 +1,4 @@
-import React, { useState, useEffect ,useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "react-native-gesture-handler";
 import {
   StyleSheet,
@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   StatusBar,
   ImageBackground,
+  Image,
   Dimensions,
   TextInput,
 } from "react-native";
@@ -18,24 +19,24 @@ const chatPage = ({ navigation }) => {
   const scroll = useRef();
   const [newChat, setNewChat] = useState(true);
   const userid = firebase.auth().currentUser.uid;
-  const [chats,setChats] = useState([])
-  const [message,setMessage] = useState('')
+  const [chats, setChats] = useState([]);
+  const [message, setMessage] = useState("");
 
   useEffect(() => {
     firebase
       .database()
-      .ref("/Chats/" + userid )
+      .ref("/Chats/" + userid)
       .on("value", (snapshot) => {
         const firebasedata = snapshot.val();
-        try{
-          if (firebasedata.length>0){
-            setNewChat(false)
-            setChats(firebasedata)
+        try {
+          if (firebasedata.length > 0) {
+            setNewChat(false);
+            setChats(firebasedata);
           }
-        }catch(err){
-          console.log(err)
+        } catch (err) {
+          console.log(err);
         }
-    })
+      });
   }, []);
 
   return (
@@ -56,7 +57,10 @@ const chatPage = ({ navigation }) => {
             }}
           >
             <TouchableOpacity onPress={() => navigation.goBack()}>
-              <Text style={{ fontSize: 20, color: "#FFFFFF" }}>Kembali</Text>
+              <Image
+                source={require("../assets/back_white.png")}
+                style={{ width: 30, height: 30 }}
+              />
             </TouchableOpacity>
             <View
               style={{
@@ -121,23 +125,23 @@ const chatPage = ({ navigation }) => {
               scroll.current.scrollToEnd({ animated: false });
             }}
           >
-            {
-              chats.map((chat, index) => (
-                chat['Sender']?
+            {chats.map((chat, index) =>
+              chat["Sender"] ? (
                 <View style={{ alignItems: "flex-end" }}>
                   <View style={styles.sender}>
                     <Text style={{ fontSize: 17, color: "#FFFFFF" }}>
-                      {chat['Text']}
+                      {chat["Text"]}
                     </Text>
                   </View>
-                </View>:
+                </View>
+              ) : (
                 <View style={{ alignItems: "flex-start" }}>
                   <View style={styles.receiver}>
-                    <Text style={{ fontSize: 17 }}>{chat['Text']}</Text>
+                    <Text style={{ fontSize: 17 }}>{chat["Text"]}</Text>
                   </View>
                 </View>
-              ))
-            }
+              )
+            )}
           </ScrollView>
           <View style={{ flexDirection: "row", bottom: 0, marginTop: 10 }}>
             <TextInput
@@ -158,23 +162,26 @@ const chatPage = ({ navigation }) => {
                 width: Dimensions.get("window").width - 70,
               }}
             />
-            <TouchableOpacity onPress={()=>{
-              
-              if (message!=''){
-                firebase
-                  .database()
-                  .ref("/Chats/" + userid + "/"+String(chats.length))
-                  .set({
-                    Sender:true,
-                    Text:message
-                  });
-                setMessage('')
-              }else{
-                alert('You cannot send empty message!')
-              }
-              
-            }}>
-              <Text style={{ fontSize: 20, color: "#FFFFFF" }}>send</Text>
+            <TouchableOpacity
+              onPress={() => {
+                if (message != "") {
+                  firebase
+                    .database()
+                    .ref("/Chats/" + userid + "/" + String(chats.length))
+                    .set({
+                      Sender: true,
+                      Text: message,
+                    });
+                  setMessage("");
+                } else {
+                  alert("You cannot send empty message!");
+                }
+              }}
+            >
+              <Image
+                source={require("../assets/sending.png")}
+                style={{ width: 40, height: 40, marginLeft: 10 }}
+              />
             </TouchableOpacity>
           </View>
         </ImageBackground>

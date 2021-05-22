@@ -29,7 +29,6 @@ const mainMenuPage = ({ navigation }) => {
 
   //change reminder
   const [time, setTime] = useState(1050);
-  const [timeString, setTimeString] = useState("");
   const [hour, setHour] = useState("");
   const [minute, setMinute] = useState("");
   const [amOrpm, setAmOrPm] = useState("");
@@ -41,13 +40,12 @@ const mainMenuPage = ({ navigation }) => {
   const [name, setName] = useState("-");
   const [email, setEmail] = useState("-");
   const [phNo, setPhNo] = useState("-");
-  const [password, setPassword] = useState("32131");
 
   //for session
-  const [audioListened, setAudioListened] = useState(true);
+  const [audioListened, setAudioListened] = useState(false);
   const [articleRead, setArticleRead] = useState(true);
   const [percent, setPercent] = useState(0);
-  const [session, setSession] = useState(1);
+  const [session, setSession] = useState(5);
 
   //survey
   const [firstSurvey, setFirstSurvey] = useState(false);
@@ -58,7 +56,7 @@ const mainMenuPage = ({ navigation }) => {
   const [videoId, setVideoID] = useState(1);
   const userid = firebase.auth().currentUser.uid;
 
-  const uploadReminder = () =>{
+  const uploadReminder = () => {
     var h = parseInt(tempHour);
     var m = parseInt(tempMinute);
     if (tempAmOrPm == "pm") {
@@ -66,14 +64,14 @@ const mainMenuPage = ({ navigation }) => {
     }
     m = m + h * 60;
 
-    console.log(m)
+    console.log(m);
     firebase
       .database()
       .ref("/Users/" + userid + "/Reminder/")
       .set(m);
-  }
+  };
 
-  const editUser=()=>{
+  const editUser = () => {
     firebase
       .database()
       .ref("/Users/" + userid + "/Name/")
@@ -82,7 +80,7 @@ const mainMenuPage = ({ navigation }) => {
       .database()
       .ref("/Users/" + userid + "/Phone/")
       .set(phNo);
-  }
+  };
 
   useEffect(() => {
     firebase
@@ -92,16 +90,16 @@ const mainMenuPage = ({ navigation }) => {
         const firebasedata = snapshot.val();
         setSession(firebasedata);
 
-        if (firebasedata == 13){
+        if (firebasedata == 13) {
           firebase
             .database()
             .ref("/Users/" + userid + "/CompleteSessionsTime/")
             .once("value", (snapshot) => {
               const firebasedataCompleteTime = snapshot.val();
-              var currentTime = new Date()
-              currentTime.setMonth(currentTime.getMonth() + 1)
-              if (firebasedataCompleteTime>currentTime.getTime()){
-                setSurvey(true)
+              var currentTime = new Date();
+              currentTime.setMonth(currentTime.getMonth() + 1);
+              if (firebasedataCompleteTime > currentTime.getTime()) {
+                setSurvey(true);
               }
             });
         }
@@ -155,66 +153,87 @@ const mainMenuPage = ({ navigation }) => {
         const firebasedata = snapshot.val();
         setVideoID(firebasedata);
       });
+    firebase
+      .database()
+      .ref("/Users/" + userid + "/FirstSurvey/")
+      .once("value", (snapshot) => {
+        const firebasedata = snapshot.val();
+        setFirstSurvey(firebasedata);
+      });
+    firebase
+      .database()
+      .ref("/Users/" + userid + "/SecondSurvey/")
+      .once("value", (snapshot) => {
+        const firebasedata = snapshot.val();
+        setSecondSurvey(firebasedata);
+      });
+    firebase
+      .database()
+      .ref("/Users/" + userid + "/ThirdSurvey/")
+      .once("value", (snapshot) => {
+        const firebasedata = snapshot.val();
+        setThirdSurvey(firebasedata);
+      });
   }, []);
 
   useEffect(() => {
     if (articleRead && audioListened) {
-      setPercent(100);
-      firebase
-      .database()
-      .ref("/Users/" + userid + "/Complete/Record")
-      .once("value", (snapshot) => {
-        const firebasedata = snapshot.val();
-        if (firebasedata == false){
-          firebase
-            .database()
-            .ref("/Users/" + userid + "/Complete/Time")
-            .set(new Date().getTime());
-          firebase
-            .database()
-            .ref("/Users/" + userid + "/Complete/Record")
-            .set(true);
-        }else{
-          firebase
-            .database()
-            .ref("/Users/" + userid + "/Complete/Time")
-            .once("value", (snapshot) => {
-              const firebasedataTime = snapshot.val();
-              var currentTime = new Date()
-              currentTime.setHours(currentTime.getHours() + 48)
-              if (firebasedataTime>currentTime.getTime()){
-                if (session == 12){
-                  firebase
-                  .database()
-                  .ref("/Users/" + userid + "/CompleteSessionsTime")
-                  .set(new Date().getTime());
-                }
-                firebase
-                  .database()
-                  .ref("/Users/" + userid + "/Complete/Record")
-                  .set(false);
-                firebase
-                  .database()
-                  .ref("/Users/" + userid + "/session")
-                  .set(session+1);
-                setSession(session+1)
-                firebase
-                  .database()
-                  .ref("/Users/" + userid + "/articleRead")
-                  .set(false);
-                setArticleRead(false)
-                firebase
-                  .database()
-                  .ref("/Users/" + userid + "/audioListen")
-                  .set(false);
-                setArticleRead(false)
-              }else{
-                console.log('Wait 48 Hours')
-              }
-            })
-        }
-      });
-      
+      if (session != 13) {
+        setPercent(100);
+        firebase
+          .database()
+          .ref("/Users/" + userid + "/Complete/Record")
+          .once("value", (snapshot) => {
+            const firebasedata = snapshot.val();
+            if (firebasedata == false) {
+              firebase
+                .database()
+                .ref("/Users/" + userid + "/Complete/Time")
+                .set(new Date().getTime());
+              firebase
+                .database()
+                .ref("/Users/" + userid + "/Complete/Record")
+                .set(true);
+            } else {
+              firebase
+                .database()
+                .ref("/Users/" + userid + "/Complete/Time")
+                .once("value", (snapshot) => {
+                  const firebasedataTime = snapshot.val();
+                  var currentTime = new Date();
+                  if (currentTime.getTime() - firebasedataTime >= 172800000) {
+                    if (session == 12) {
+                      firebase
+                        .database()
+                        .ref("/Users/" + userid + "/CompleteSessionsTime")
+                        .set(new Date().getTime());
+                    }
+                    firebase
+                      .database()
+                      .ref("/Users/" + userid + "/Complete/Record")
+                      .set(false);
+                    firebase
+                      .database()
+                      .ref("/Users/" + userid + "/session")
+                      .set(session + 1);
+                    setSession(session + 1);
+                    firebase
+                      .database()
+                      .ref("/Users/" + userid + "/articleRead")
+                      .set(false);
+                    setArticleRead(false);
+                    firebase
+                      .database()
+                      .ref("/Users/" + userid + "/audioListen")
+                      .set(false);
+                    setArticleRead(false);
+                  } else {
+                    console.log("Wait 48 Hours");
+                  }
+                });
+            }
+          });
+      }
     } else if (articleRead && !audioListened) {
       setPercent(50);
     } else if (!articleRead && audioListened) {
@@ -222,7 +241,7 @@ const mainMenuPage = ({ navigation }) => {
     } else {
       setPercent(0);
     }
-  }, [articleRead,audioListened]);
+  }, [articleRead, audioListened]);
 
   const showTimePicker = () => {
     setTempTime();
@@ -317,17 +336,42 @@ const mainMenuPage = ({ navigation }) => {
 
   useEffect(() => {
     if (session == 6 && articleRead && audioListened && !firstSurvey) {
-      setFirstSurvey(true);
+      firebase
+        .database()
+        .ref("/Users/" + userid + "/FirstSurvey/")
+        .set(true);
       setSurvey(true);
     }
 
     if (session == 12 && articleRead && audioListened && !secondSurvey) {
-      setSecondSurvey(true);
+      firebase
+        .database()
+        .ref("/Users/" + userid + "/SecondSurvey/")
+        .set(true);
       setSurvey(true);
     }
 
-    //after 1 month after 12th session, survey again
+    if (secondSurvey) {
+      firebase
+        .database()
+        .ref("/Users/" + userid + "/CompleteSessionsTime/")
+        .once("value", (snapshot) => {
+          const firebasedataTime = snapshot.val();
+          var currentTime = new Date();
+          if (
+            currentTime.getTime() - firebasedataTime >= 2592000000 &&
+            !thirdSurvey
+          ) {
+            firebase
+              .database()
+              .ref("/Users/" + userid + "/ThirdSurvey/")
+              .set(true);
+            setSurvey(true);
+          }
+        });
+    }
   });
+
   const DrawerContent = () => {
     return (
       <View style={{ flex: 1, backgroundColor: "#FFFFFF" }}>
@@ -340,7 +384,10 @@ const mainMenuPage = ({ navigation }) => {
           }}
         >
           <TouchableOpacity onPress={() => setDrawer(false)}>
-            <Text style={{ fontSize: 20 }}>Tutup Menu</Text>
+            <Image
+              source={require("../assets/back.png")}
+              style={{ width: 30, height: 30 }}
+            />
           </TouchableOpacity>
 
           <Text style={{ marginTop: 20, fontSize: 25, fontWeight: "bold" }}>
@@ -658,8 +705,8 @@ const mainMenuPage = ({ navigation }) => {
                           <TouchableOpacity
                             style={styles.buttonStyle2}
                             onPress={() => {
-                              editUser()
-                              setShowDetails(false)
+                              editUser();
+                              setShowDetails(false);
                             }}
                           >
                             <Text
@@ -739,7 +786,7 @@ const mainMenuPage = ({ navigation }) => {
                           style={{
                             fontSize: 20,
                             textAlign: "center",
-                            marginTop: 15,
+                            marginTop: 20,
                             marginBottom: 10,
                           }}
                         >
@@ -768,7 +815,17 @@ const mainMenuPage = ({ navigation }) => {
                                   alignItems: "center",
                                   justifyContent: "center",
                                 }}
-                              ></View>
+                              >
+                                <Image
+                                  source={require("../assets/tick.png")}
+                                  style={{
+                                    width: 40,
+                                    height: 40,
+                                    marginBottom: 7,
+                                    marginLeft: 3,
+                                  }}
+                                />
+                              </View>
                             ) : (
                               <ProgressCircle
                                 percent={0}
@@ -789,11 +846,6 @@ const mainMenuPage = ({ navigation }) => {
                             ]}
                             disabled={session >= 1 ? false : true}
                             onPress={() => {
-                              firebase
-                                .database()
-                                .ref("/Users/" + userid + "/articleRead/")
-                                .set(true);
-                              setArticleRead(true)
                               setShowSession(false);
                               session >= 1
                                 ? navigation.navigate("articlePage", {
@@ -805,7 +857,7 @@ const mainMenuPage = ({ navigation }) => {
                             <Text
                               style={[styles.buttonText, { color: "white" }]}
                             >
-                              {session >= 1 ? "PERuT®" : "Incoming"}
+                              {session >= 1 ? "Apakah itu PERuT" : "Incoming"}
                             </Text>
                           </TouchableOpacity>
                         </View>
@@ -814,7 +866,7 @@ const mainMenuPage = ({ navigation }) => {
                           style={{
                             fontSize: 20,
                             textAlign: "center",
-                            marginTop: 15,
+                            marginTop: 20,
                             marginBottom: 10,
                           }}
                         >
@@ -843,7 +895,17 @@ const mainMenuPage = ({ navigation }) => {
                                   alignItems: "center",
                                   justifyContent: "center",
                                 }}
-                              ></View>
+                              >
+                                <Image
+                                  source={require("../assets/tick.png")}
+                                  style={{
+                                    width: 40,
+                                    height: 40,
+                                    marginBottom: 7,
+                                    marginLeft: 3,
+                                  }}
+                                />
+                              </View>
                             ) : (
                               <ProgressCircle
                                 percent={0}
@@ -883,7 +945,7 @@ const mainMenuPage = ({ navigation }) => {
                           style={{
                             fontSize: 20,
                             textAlign: "center",
-                            marginTop: 15,
+                            marginTop: 20,
                             marginBottom: 10,
                           }}
                         >
@@ -912,7 +974,17 @@ const mainMenuPage = ({ navigation }) => {
                                   alignItems: "center",
                                   justifyContent: "center",
                                 }}
-                              ></View>
+                              >
+                                <Image
+                                  source={require("../assets/tick.png")}
+                                  style={{
+                                    width: 40,
+                                    height: 40,
+                                    marginBottom: 7,
+                                    marginLeft: 3,
+                                  }}
+                                />
+                              </View>
                             ) : (
                               <ProgressCircle
                                 percent={0}
@@ -945,7 +1017,7 @@ const mainMenuPage = ({ navigation }) => {
                               style={[styles.buttonText, { color: "white" }]}
                             >
                               {session >= 3
-                                ? "Punca-Punca Perut Kembung"
+                                ? "Punca-punca perut kembung (1)"
                                 : "Incoming"}
                             </Text>
                           </TouchableOpacity>
@@ -954,7 +1026,7 @@ const mainMenuPage = ({ navigation }) => {
                           style={{
                             fontSize: 20,
                             textAlign: "center",
-                            marginTop: 15,
+                            marginTop: 20,
                             marginBottom: 10,
                           }}
                         >
@@ -983,7 +1055,17 @@ const mainMenuPage = ({ navigation }) => {
                                   alignItems: "center",
                                   justifyContent: "center",
                                 }}
-                              ></View>
+                              >
+                                <Image
+                                  source={require("../assets/tick.png")}
+                                  style={{
+                                    width: 40,
+                                    height: 40,
+                                    marginBottom: 7,
+                                    marginLeft: 3,
+                                  }}
+                                />
+                              </View>
                             ) : (
                               <ProgressCircle
                                 percent={0}
@@ -1016,7 +1098,7 @@ const mainMenuPage = ({ navigation }) => {
                               style={[styles.buttonText, { color: "white" }]}
                             >
                               {session >= 4
-                                ? "Kenali Sistem Penghadaman Anda"
+                                ? "Punca-punca perut kembung (2)"
                                 : "Incoming"}
                             </Text>
                           </TouchableOpacity>
@@ -1026,7 +1108,7 @@ const mainMenuPage = ({ navigation }) => {
                           style={{
                             fontSize: 20,
                             textAlign: "center",
-                            marginTop: 15,
+                            marginTop: 20,
                             marginBottom: 10,
                           }}
                         >
@@ -1055,7 +1137,17 @@ const mainMenuPage = ({ navigation }) => {
                                   alignItems: "center",
                                   justifyContent: "center",
                                 }}
-                              ></View>
+                              >
+                                <Image
+                                  source={require("../assets/tick.png")}
+                                  style={{
+                                    width: 40,
+                                    height: 40,
+                                    marginBottom: 7,
+                                    marginLeft: 3,
+                                  }}
+                                />
+                              </View>
                             ) : (
                               <ProgressCircle
                                 percent={0}
@@ -1087,7 +1179,9 @@ const mainMenuPage = ({ navigation }) => {
                             <Text
                               style={[styles.buttonText, { color: "white" }]}
                             >
-                              {session >= 5 ? "Incoming" : "Incoming"}
+                              {session >= 5
+                                ? "Kenali Sistem Penghadaman anda (1)"
+                                : "Incoming"}
                             </Text>
                           </TouchableOpacity>
                         </View>
@@ -1096,7 +1190,7 @@ const mainMenuPage = ({ navigation }) => {
                           style={{
                             fontSize: 20,
                             textAlign: "center",
-                            marginTop: 15,
+                            marginTop: 20,
                             marginBottom: 10,
                           }}
                         >
@@ -1125,7 +1219,17 @@ const mainMenuPage = ({ navigation }) => {
                                   alignItems: "center",
                                   justifyContent: "center",
                                 }}
-                              ></View>
+                              >
+                                <Image
+                                  source={require("../assets/tick.png")}
+                                  style={{
+                                    width: 40,
+                                    height: 40,
+                                    marginBottom: 7,
+                                    marginLeft: 3,
+                                  }}
+                                />
+                              </View>
                             ) : (
                               <ProgressCircle
                                 percent={0}
@@ -1157,7 +1261,9 @@ const mainMenuPage = ({ navigation }) => {
                             <Text
                               style={[styles.buttonText, { color: "white" }]}
                             >
-                              {session >= 6 ? "Incoming" : "Incoming"}
+                              {session >= 6
+                                ? "Kenali Sistem Penghadaman anda (2)"
+                                : "Incoming"}
                             </Text>
                           </TouchableOpacity>
                         </View>
@@ -1166,7 +1272,7 @@ const mainMenuPage = ({ navigation }) => {
                           style={{
                             fontSize: 20,
                             textAlign: "center",
-                            marginTop: 15,
+                            marginTop: 20,
                             marginBottom: 10,
                           }}
                         >
@@ -1195,7 +1301,17 @@ const mainMenuPage = ({ navigation }) => {
                                   alignItems: "center",
                                   justifyContent: "center",
                                 }}
-                              ></View>
+                              >
+                                <Image
+                                  source={require("../assets/tick.png")}
+                                  style={{
+                                    width: 40,
+                                    height: 40,
+                                    marginBottom: 7,
+                                    marginLeft: 3,
+                                  }}
+                                />
+                              </View>
                             ) : (
                               <ProgressCircle
                                 percent={0}
@@ -1227,7 +1343,9 @@ const mainMenuPage = ({ navigation }) => {
                             <Text
                               style={[styles.buttonText, { color: "white" }]}
                             >
-                              {session >= 7 ? "Incoming" : "Incoming"}
+                              {session >= 7
+                                ? "Penyakit Sistem Penghadaman (1)"
+                                : "Incoming"}
                             </Text>
                           </TouchableOpacity>
                         </View>
@@ -1236,7 +1354,7 @@ const mainMenuPage = ({ navigation }) => {
                           style={{
                             fontSize: 20,
                             textAlign: "center",
-                            marginTop: 15,
+                            marginTop: 20,
                             marginBottom: 10,
                           }}
                         >
@@ -1265,7 +1383,17 @@ const mainMenuPage = ({ navigation }) => {
                                   alignItems: "center",
                                   justifyContent: "center",
                                 }}
-                              ></View>
+                              >
+                                <Image
+                                  source={require("../assets/tick.png")}
+                                  style={{
+                                    width: 40,
+                                    height: 40,
+                                    marginBottom: 7,
+                                    marginLeft: 3,
+                                  }}
+                                />
+                              </View>
                             ) : (
                               <ProgressCircle
                                 percent={0}
@@ -1297,7 +1425,9 @@ const mainMenuPage = ({ navigation }) => {
                             <Text
                               style={[styles.buttonText, { color: "white" }]}
                             >
-                              {session >= 8 ? "Incoming" : "Incoming"}
+                              {session >= 8
+                                ? "Penyakit Sistem Penghadaman (2)"
+                                : "Incoming"}
                             </Text>
                           </TouchableOpacity>
                         </View>
@@ -1306,7 +1436,7 @@ const mainMenuPage = ({ navigation }) => {
                           style={{
                             fontSize: 20,
                             textAlign: "center",
-                            marginTop: 15,
+                            marginTop: 20,
                             marginBottom: 10,
                           }}
                         >
@@ -1335,7 +1465,17 @@ const mainMenuPage = ({ navigation }) => {
                                   alignItems: "center",
                                   justifyContent: "center",
                                 }}
-                              ></View>
+                              >
+                                <Image
+                                  source={require("../assets/tick.png")}
+                                  style={{
+                                    width: 40,
+                                    height: 40,
+                                    marginBottom: 7,
+                                    marginLeft: 3,
+                                  }}
+                                />
+                              </View>
                             ) : (
                               <ProgressCircle
                                 percent={0}
@@ -1367,7 +1507,7 @@ const mainMenuPage = ({ navigation }) => {
                             <Text
                               style={[styles.buttonText, { color: "white" }]}
                             >
-                              {session >= 9 ? "Incoming" : "Incoming"}
+                              {session >= 9 ? "Paksi Usus & Otak" : "Incoming"}
                             </Text>
                           </TouchableOpacity>
                         </View>
@@ -1376,7 +1516,7 @@ const mainMenuPage = ({ navigation }) => {
                           style={{
                             fontSize: 20,
                             textAlign: "center",
-                            marginTop: 15,
+                            marginTop: 20,
                             marginBottom: 10,
                           }}
                         >
@@ -1405,7 +1545,17 @@ const mainMenuPage = ({ navigation }) => {
                                   alignItems: "center",
                                   justifyContent: "center",
                                 }}
-                              ></View>
+                              >
+                                <Image
+                                  source={require("../assets/tick.png")}
+                                  style={{
+                                    width: 40,
+                                    height: 40,
+                                    marginBottom: 7,
+                                    marginLeft: 3,
+                                  }}
+                                />
+                              </View>
                             ) : (
                               <ProgressCircle
                                 percent={0}
@@ -1437,7 +1587,7 @@ const mainMenuPage = ({ navigation }) => {
                             <Text
                               style={[styles.buttonText, { color: "white" }]}
                             >
-                              {session >= 10 ? "Incoming" : "Incoming"}
+                              {session >= 10 ? "Rawatan (1)" : "Incoming"}
                             </Text>
                           </TouchableOpacity>
                         </View>
@@ -1446,7 +1596,7 @@ const mainMenuPage = ({ navigation }) => {
                           style={{
                             fontSize: 20,
                             textAlign: "center",
-                            marginTop: 15,
+                            marginTop: 20,
                             marginBottom: 10,
                           }}
                         >
@@ -1475,7 +1625,17 @@ const mainMenuPage = ({ navigation }) => {
                                   alignItems: "center",
                                   justifyContent: "center",
                                 }}
-                              ></View>
+                              >
+                                <Image
+                                  source={require("../assets/tick.png")}
+                                  style={{
+                                    width: 40,
+                                    height: 40,
+                                    marginBottom: 7,
+                                    marginLeft: 3,
+                                  }}
+                                />
+                              </View>
                             ) : (
                               <ProgressCircle
                                 percent={0}
@@ -1507,7 +1667,7 @@ const mainMenuPage = ({ navigation }) => {
                             <Text
                               style={[styles.buttonText, { color: "white" }]}
                             >
-                              {session >= 11 ? "Incoming" : "Incoming"}
+                              {session >= 11 ? "Rawatan (2)" : "Incoming"}
                             </Text>
                           </TouchableOpacity>
                         </View>
@@ -1516,7 +1676,7 @@ const mainMenuPage = ({ navigation }) => {
                           style={{
                             fontSize: 20,
                             textAlign: "center",
-                            marginTop: 15,
+                            marginTop: 20,
                             marginBottom: 10,
                           }}
                         >
@@ -1545,7 +1705,17 @@ const mainMenuPage = ({ navigation }) => {
                                   alignItems: "center",
                                   justifyContent: "center",
                                 }}
-                              ></View>
+                              >
+                                <Image
+                                  source={require("../assets/tick.png")}
+                                  style={{
+                                    width: 40,
+                                    height: 40,
+                                    marginBottom: 7,
+                                    marginLeft: 3,
+                                  }}
+                                />
+                              </View>
                             ) : (
                               <ProgressCircle
                                 percent={0}
@@ -1577,7 +1747,7 @@ const mainMenuPage = ({ navigation }) => {
                             <Text
                               style={[styles.buttonText, { color: "white" }]}
                             >
-                              {session >= 12 ? "Incoming" : "Incoming"}
+                              {session >= 12 ? "Rawatan (3)" : "Incoming"}
                             </Text>
                           </TouchableOpacity>
                         </View>
@@ -1742,7 +1912,17 @@ const mainMenuPage = ({ navigation }) => {
                             alignItems: "center",
                             justifyContent: "center",
                           }}
-                        ></View>
+                        >
+                          <Image
+                            source={require("../assets/tick.png")}
+                            style={{
+                              width: 40,
+                              height: 40,
+                              marginBottom: 7,
+                              marginLeft: 3,
+                            }}
+                          />
+                        </View>
                       ) : (
                         <ProgressCircle
                           percent={0}
@@ -1775,7 +1955,17 @@ const mainMenuPage = ({ navigation }) => {
                             alignItems: "center",
                             justifyContent: "center",
                           }}
-                        ></View>
+                        >
+                          <Image
+                            source={require("../assets/tick.png")}
+                            style={{
+                              width: 40,
+                              height: 40,
+                              marginBottom: 7,
+                              marginLeft: 3,
+                            }}
+                          />
+                        </View>
                       ) : (
                         <ProgressCircle
                           percent={0}
@@ -1809,7 +1999,17 @@ const mainMenuPage = ({ navigation }) => {
                             alignItems: "center",
                             justifyContent: "center",
                           }}
-                        ></View>
+                        >
+                          <Image
+                            source={require("../assets/tick.png")}
+                            style={{
+                              width: 40,
+                              height: 40,
+                              marginBottom: 7,
+                              marginLeft: 3,
+                            }}
+                          />
+                        </View>
                       ) : (
                         <ProgressCircle
                           percent={0}
@@ -1843,7 +2043,17 @@ const mainMenuPage = ({ navigation }) => {
                             alignItems: "center",
                             justifyContent: "center",
                           }}
-                        ></View>
+                        >
+                          <Image
+                            source={require("../assets/tick.png")}
+                            style={{
+                              width: 40,
+                              height: 40,
+                              marginBottom: 7,
+                              marginLeft: 3,
+                            }}
+                          />
+                        </View>
                       ) : (
                         <ProgressCircle
                           percent={0}
@@ -1887,7 +2097,17 @@ const mainMenuPage = ({ navigation }) => {
                             alignItems: "center",
                             justifyContent: "center",
                           }}
-                        ></View>
+                        >
+                          <Image
+                            source={require("../assets/tick.png")}
+                            style={{
+                              width: 40,
+                              height: 40,
+                              marginBottom: 7,
+                              marginLeft: 3,
+                            }}
+                          />
+                        </View>
                       ) : (
                         <ProgressCircle
                           percent={0}
@@ -1920,7 +2140,17 @@ const mainMenuPage = ({ navigation }) => {
                             alignItems: "center",
                             justifyContent: "center",
                           }}
-                        ></View>
+                        >
+                          <Image
+                            source={require("../assets/tick.png")}
+                            style={{
+                              width: 40,
+                              height: 40,
+                              marginBottom: 7,
+                              marginLeft: 3,
+                            }}
+                          />
+                        </View>
                       ) : (
                         <ProgressCircle
                           percent={0}
@@ -1954,7 +2184,17 @@ const mainMenuPage = ({ navigation }) => {
                             alignItems: "center",
                             justifyContent: "center",
                           }}
-                        ></View>
+                        >
+                          <Image
+                            source={require("../assets/tick.png")}
+                            style={{
+                              width: 40,
+                              height: 40,
+                              marginBottom: 7,
+                              marginLeft: 3,
+                            }}
+                          />
+                        </View>
                       ) : (
                         <ProgressCircle
                           percent={0}
@@ -1988,7 +2228,17 @@ const mainMenuPage = ({ navigation }) => {
                             alignItems: "center",
                             justifyContent: "center",
                           }}
-                        ></View>
+                        >
+                          <Image
+                            source={require("../assets/tick.png")}
+                            style={{
+                              width: 40,
+                              height: 40,
+                              marginBottom: 7,
+                              marginLeft: 3,
+                            }}
+                          />
+                        </View>
                       ) : (
                         <ProgressCircle
                           percent={0}
@@ -2033,7 +2283,17 @@ const mainMenuPage = ({ navigation }) => {
                             alignItems: "center",
                             justifyContent: "center",
                           }}
-                        ></View>
+                        >
+                          <Image
+                            source={require("../assets/tick.png")}
+                            style={{
+                              width: 40,
+                              height: 40,
+                              marginBottom: 7,
+                              marginLeft: 3,
+                            }}
+                          />
+                        </View>
                       ) : (
                         <ProgressCircle
                           percent={0}
@@ -2066,7 +2326,17 @@ const mainMenuPage = ({ navigation }) => {
                             alignItems: "center",
                             justifyContent: "center",
                           }}
-                        ></View>
+                        >
+                          <Image
+                            source={require("../assets/tick.png")}
+                            style={{
+                              width: 40,
+                              height: 40,
+                              marginBottom: 7,
+                              marginLeft: 3,
+                            }}
+                          />
+                        </View>
                       ) : (
                         <ProgressCircle
                           percent={0}
@@ -2100,7 +2370,17 @@ const mainMenuPage = ({ navigation }) => {
                             alignItems: "center",
                             justifyContent: "center",
                           }}
-                        ></View>
+                        >
+                          <Image
+                            source={require("../assets/tick.png")}
+                            style={{
+                              width: 40,
+                              height: 40,
+                              marginBottom: 7,
+                              marginLeft: 3,
+                            }}
+                          />
+                        </View>
                       ) : (
                         <ProgressCircle
                           percent={0}
@@ -2134,7 +2414,17 @@ const mainMenuPage = ({ navigation }) => {
                             alignItems: "center",
                             justifyContent: "center",
                           }}
-                        ></View>
+                        >
+                          <Image
+                            source={require("../assets/tick.png")}
+                            style={{
+                              width: 40,
+                              height: 40,
+                              marginBottom: 7,
+                              marginLeft: 3,
+                            }}
+                          />
+                        </View>
                       ) : (
                         <ProgressCircle
                           percent={0}
@@ -2198,43 +2488,103 @@ const mainMenuPage = ({ navigation }) => {
                         .database()
                         .ref("/Users/" + userid + "/articleRead/")
                         .set(true);
-                      setArticleRead(true)
+                      setArticleRead(true);
                       session == 13
                         ? navigation.navigate("articlePage", { Session: 12 })
                         : navigation.navigate("articlePage", {
                             Session: session,
-                          })
+                          });
                     }}
                   >
                     <Text style={[styles.buttonText, { color: "white" }]}>
-                      1. {session == 1 ? "PERuT®" : null}
-                      {session == 2 ? "Kembung Perut" : null}
-                      {session == 3 ? "Punca-Punca Perut Kembung" : null}
-                      {session == 4 ? "Kenali Sistem Penghadaman Anda" : null}
-                      {session == 5 ? "Incoming" : null}
-                      {session == 6 ? "Incoming" : null}
-                      {session == 7 ? "Incoming" : null}
-                      {session == 8 ? "Incoming" : null}
-                      {session == 9 ? "Incoming" : null}
-                      {session == 10 ? "Incoming" : null}
-                      {session == 11 ? "Incoming" : null}
-                      {session == 12 ? "Incoming" : null}
-                      {session == 13 ? "Incoming" : null}
+                      1.{" "}
+                      {session == 1
+                        ? articleRead
+                          ? "Apakah itu PERuT (done)"
+                          : "Apakah itu PERuT"
+                        : null}
+                      {session == 2
+                        ? articleRead
+                          ? "Kembung Perut (done)"
+                          : "Kembung Perut"
+                        : null}
+                      {session == 3
+                        ? articleRead
+                          ? "Punca-punca perut kembung (1) (done)"
+                          : "Punca-punca perut kembung (1)"
+                        : null}
+                      {session == 4
+                        ? articleRead
+                          ? "Punca-punca perut kembung (2) (done)"
+                          : "Punca-punca perut kembung (2)"
+                        : null}
+                      {session == 5
+                        ? articleRead
+                          ? "Kenali Sistem Penghadaman anda (1) (done)"
+                          : "Kenali Sistem Penghadaman anda (1)"
+                        : null}
+                      {session == 6
+                        ? articleRead
+                          ? "Kenali Sistem Penghadaman anda (2) (done)"
+                          : "Kenali Sistem Penghadaman anda (2)"
+                        : null}
+                      {session == 7
+                        ? articleRead
+                          ? "Penyakit Sistem Penghadaman (1) (done)"
+                          : "Penyakit Sistem Penghadaman (1)"
+                        : null}
+                      {session == 8
+                        ? articleRead
+                          ? "Penyakit Sistem Penghadaman (2)"
+                          : "Penyakit Sistem Penghadaman (2)"
+                        : null}
+                      {session == 9
+                        ? articleRead
+                          ? "Paksi Usus & Otak (done)"
+                          : "Paksi Usus & Otak"
+                        : null}
+                      {session == 10
+                        ? articleRead
+                          ? "Rawatan (1) (done)"
+                          : "Rawatan (1)"
+                        : null}
+                      {session == 11
+                        ? articleRead
+                          ? "Rawatan (2) (done)"
+                          : "Rawatan (2)"
+                        : null}
+                      {session == 12
+                        ? articleRead
+                          ? "Rawatan (3) (done)"
+                          : "Rawatan (3)"
+                        : null}
+                      {session == 13 ? "Rawatan (3) (done)" : null}
                     </Text>
                   </TouchableOpacity>
                 </View>
                 <View style={{ alignItems: "center", marginTop: 20 }}>
                   <TouchableOpacity
                     style={[styles.buttonStyle, { backgroundColor: "#34433C" }]}
-                    onPress={() =>
-                      navigation.navigate("audioPage", {
-                        VideoID: videoId,
-                        Session: session,
-                      })
-                    }
+                    onPress={() => {
+                      if (session == 13) {
+                        navigation.navigate("audioPage", {
+                          VideoID: videoId,
+                          Session: 12,
+                        });
+                      } else {
+                        navigation.navigate("audioPage", {
+                          VideoID: videoId,
+                          Session: session,
+                        });
+                      }
+                    }}
                   >
                     <Text style={[styles.buttonText, { color: "white" }]}>
-                      2. Audio Kembung Perut
+                      {session == 13
+                        ? "2. Audio Kembung Perut (done)"
+                        : audioListened
+                        ? "2. Audio Kembung Perut (done)"
+                        : "2. Audio Kembung Perut"}
                     </Text>
                   </TouchableOpacity>
                 </View>
