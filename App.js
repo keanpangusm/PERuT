@@ -29,7 +29,7 @@ const app = () => {
     <SafeAreaProvider>
       <NavigationContainer>
         <Stack.Navigator>
-          {/* <Stack.Screen
+          <Stack.Screen
             name="firstPage"
             component={firstPage}
             options={{ headerShown: false }}
@@ -98,7 +98,7 @@ const app = () => {
             name="feedBackPage"
             component={feedBackPage}
             options={{ headerShown: false }}
-          /> */}
+          />
           <Stack.Screen
             name="mainMenuPage"
             component={mainMenuPage}

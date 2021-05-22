@@ -90,8 +90,12 @@ const audioPage = ({ navigation, route }) => {
                   <Video
                     source={
                       route.params["VideoID"] == 1
-                        ? require("../assets/audio/ImageryTherapy.wav")
-                        : require("../assets/audio/PMR.wav")
+                        ? {
+                            uri: "https://firebasestorage.googleapis.com/v0/b/perut-edf98.appspot.com/o/ImageryTherapy.wav?alt=media&token=f4d19ffb-1d98-4cea-a26a-b91dd28d2ff2",
+                          }
+                        : {
+                            uri: "https://firebasestorage.googleapis.com/v0/b/perut-edf98.appspot.com/o/PMR.wav?alt=media&token=52cf7143-50d6-4d94-a51a-a2ab511956bd",
+                          }
                     }
                     useNativeControls={true}
                     resizeMode="contain"

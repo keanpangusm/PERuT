@@ -60,9 +60,12 @@ const Details = () => {
             Phone: phNo,
             First: true,
             session: 1,
-            articleRead: false, 
+            articleRead: false,
             audioListen: false,
-            Complete:{Record:false}
+            Complete: { Record: false },
+            FirstSurvey: false,
+            SecondSurvey: false,
+            ThirdSurvey: false,
           };
           const usersRef = firebase.database().ref("Users/" + uid);
           usersRef

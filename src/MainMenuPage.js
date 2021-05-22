@@ -42,10 +42,10 @@ const mainMenuPage = ({ navigation }) => {
   const [phNo, setPhNo] = useState("-");
 
   //for session
-  const [audioListened, setAudioListened] = useState(true);
+  const [audioListened, setAudioListened] = useState(false);
   const [articleRead, setArticleRead] = useState(true);
   const [percent, setPercent] = useState(0);
-  const [session, setSession] = useState(13);
+  const [session, setSession] = useState(5);
 
   //survey
   const [firstSurvey, setFirstSurvey] = useState(false);
@@ -54,174 +54,194 @@ const mainMenuPage = ({ navigation }) => {
   const [survey, setSurvey] = useState(false);
 
   const [videoId, setVideoID] = useState(1);
-  // const userid = firebase.auth().currentUser.uid;
+  const userid = firebase.auth().currentUser.uid;
 
-  // const uploadReminder = () => {
-  //   var h = parseInt(tempHour);
-  //   var m = parseInt(tempMinute);
-  //   if (tempAmOrPm == "pm") {
-  //     h += 12;
-  //   }
-  //   m = m + h * 60;
+  const uploadReminder = () => {
+    var h = parseInt(tempHour);
+    var m = parseInt(tempMinute);
+    if (tempAmOrPm == "pm") {
+      h += 12;
+    }
+    m = m + h * 60;
 
-  //   console.log(m);
-  //   firebase
-  //     .database()
-  //     .ref("/Users/" + userid + "/Reminder/")
-  //     .set(m);
-  // };
+    console.log(m);
+    firebase
+      .database()
+      .ref("/Users/" + userid + "/Reminder/")
+      .set(m);
+  };
 
-  // const editUser = () => {
-  //   firebase
-  //     .database()
-  //     .ref("/Users/" + userid + "/Name/")
-  //     .set(name);
-  //   firebase
-  //     .database()
-  //     .ref("/Users/" + userid + "/Phone/")
-  //     .set(phNo);
-  // };
+  const editUser = () => {
+    firebase
+      .database()
+      .ref("/Users/" + userid + "/Name/")
+      .set(name);
+    firebase
+      .database()
+      .ref("/Users/" + userid + "/Phone/")
+      .set(phNo);
+  };
 
-  // useEffect(() => {
-  //   firebase
-  //     .database()
-  //     .ref("/Users/" + userid + "/session/")
-  //     .once("value", (snapshot) => {
-  //       const firebasedata = snapshot.val();
-  //       setSession(firebasedata);
+  useEffect(() => {
+    firebase
+      .database()
+      .ref("/Users/" + userid + "/session/")
+      .once("value", (snapshot) => {
+        const firebasedata = snapshot.val();
+        setSession(firebasedata);
 
-  //       if (firebasedata == 13) {
-  //         firebase
-  //           .database()
-  //           .ref("/Users/" + userid + "/CompleteSessionsTime/")
-  //           .once("value", (snapshot) => {
-  //             const firebasedataCompleteTime = snapshot.val();
-  //             var currentTime = new Date();
-  //             currentTime.setMonth(currentTime.getMonth() + 1);
-  //             if (firebasedataCompleteTime > currentTime.getTime()) {
-  //               setSurvey(true);
-  //             }
-  //           });
-  //       }
-  //     });
-  //   firebase
-  //     .database()
-  //     .ref("/Users/" + userid + "/articleRead/")
-  //     .on("value", (snapshot) => {
-  //       const firebasedata = snapshot.val();
-  //       setArticleRead(firebasedata);
-  //     });
-  //   firebase
-  //     .database()
-  //     .ref("/Users/" + userid + "/audioListen/")
-  //     .on("value", (snapshot) => {
-  //       const firebasedata = snapshot.val();
-  //       setAudioListened(firebasedata);
-  //     });
-  //   firebase
-  //     .database()
-  //     .ref("/Users/" + userid + "/Reminder/")
-  //     .once("value", (snapshot) => {
-  //       const firebasedata = snapshot.val();
-  //       setTime(firebasedata);
-  //     });
-  //   firebase
-  //     .database()
-  //     .ref("/Users/" + userid + "/Name/")
-  //     .once("value", (snapshot) => {
-  //       const firebasedata = snapshot.val();
-  //       setName(firebasedata);
-  //     });
-  //   firebase
-  //     .database()
-  //     .ref("/Users/" + userid + "/Email/")
-  //     .once("value", (snapshot) => {
-  //       const firebasedata = snapshot.val();
-  //       setEmail(firebasedata);
-  //     });
-  //   firebase
-  //     .database()
-  //     .ref("/Users/" + userid + "/Phone/")
-  //     .once("value", (snapshot) => {
-  //       const firebasedata = snapshot.val();
-  //       setPhNo(firebasedata);
-  //     });
-  //   firebase
-  //     .database()
-  //     .ref("/Admin/Video/")
-  //     .once("value", (snapshot) => {
-  //       const firebasedata = snapshot.val();
-  //       setVideoID(firebasedata);
-  //     });
-  // }, []);
+        if (firebasedata == 13) {
+          firebase
+            .database()
+            .ref("/Users/" + userid + "/CompleteSessionsTime/")
+            .once("value", (snapshot) => {
+              const firebasedataCompleteTime = snapshot.val();
+              var currentTime = new Date();
+              currentTime.setMonth(currentTime.getMonth() + 1);
+              if (firebasedataCompleteTime > currentTime.getTime()) {
+                setSurvey(true);
+              }
+            });
+        }
+      });
+    firebase
+      .database()
+      .ref("/Users/" + userid + "/articleRead/")
+      .on("value", (snapshot) => {
+        const firebasedata = snapshot.val();
+        setArticleRead(firebasedata);
+      });
+    firebase
+      .database()
+      .ref("/Users/" + userid + "/audioListen/")
+      .on("value", (snapshot) => {
+        const firebasedata = snapshot.val();
+        setAudioListened(firebasedata);
+      });
+    firebase
+      .database()
+      .ref("/Users/" + userid + "/Reminder/")
+      .once("value", (snapshot) => {
+        const firebasedata = snapshot.val();
+        setTime(firebasedata);
+      });
+    firebase
+      .database()
+      .ref("/Users/" + userid + "/Name/")
+      .once("value", (snapshot) => {
+        const firebasedata = snapshot.val();
+        setName(firebasedata);
+      });
+    firebase
+      .database()
+      .ref("/Users/" + userid + "/Email/")
+      .once("value", (snapshot) => {
+        const firebasedata = snapshot.val();
+        setEmail(firebasedata);
+      });
+    firebase
+      .database()
+      .ref("/Users/" + userid + "/Phone/")
+      .once("value", (snapshot) => {
+        const firebasedata = snapshot.val();
+        setPhNo(firebasedata);
+      });
+    firebase
+      .database()
+      .ref("/Admin/Video/")
+      .once("value", (snapshot) => {
+        const firebasedata = snapshot.val();
+        setVideoID(firebasedata);
+      });
+    firebase
+      .database()
+      .ref("/Users/" + userid + "/FirstSurvey/")
+      .once("value", (snapshot) => {
+        const firebasedata = snapshot.val();
+        setFirstSurvey(firebasedata);
+      });
+    firebase
+      .database()
+      .ref("/Users/" + userid + "/SecondSurvey/")
+      .once("value", (snapshot) => {
+        const firebasedata = snapshot.val();
+        setSecondSurvey(firebasedata);
+      });
+    firebase
+      .database()
+      .ref("/Users/" + userid + "/ThirdSurvey/")
+      .once("value", (snapshot) => {
+        const firebasedata = snapshot.val();
+        setThirdSurvey(firebasedata);
+      });
+  }, []);
 
-  // useEffect(() => {
-  //   if (articleRead && audioListened) {
-  //     if (session != 13) {
-  //       setPercent(100);
-  //       firebase
-  //         .database()
-  //         .ref("/Users/" + userid + "/Complete/Record")
-  //         .once("value", (snapshot) => {
-  //           const firebasedata = snapshot.val();
-  //           if (firebasedata == false) {
-  //             firebase
-  //               .database()
-  //               .ref("/Users/" + userid + "/Complete/Time")
-  //               .set(new Date().getTime());
-  //             firebase
-  //               .database()
-  //               .ref("/Users/" + userid + "/Complete/Record")
-  //               .set(true);
-  //           } else {
-  //             firebase
-  //               .database()
-  //               .ref("/Users/" + userid + "/Complete/Time")
-  //               .once("value", (snapshot) => {
-  //                 const firebasedataTime = snapshot.val();
-  //                 var currentTime = new Date();
-  //                 currentTime.setHours(currentTime.getHours() + 48);
-  //                 if (firebasedataTime > currentTime.getTime()) {
-  //                   if (session == 12) {
-  //                     firebase
-  //                       .database()
-  //                       .ref("/Users/" + userid + "/CompleteSessionsTime")
-  //                       .set(new Date().getTime());
-  //                   }
-  //                   firebase
-  //                     .database()
-  //                     .ref("/Users/" + userid + "/Complete/Record")
-  //                     .set(false);
-  //                   firebase
-  //                     .database()
-  //                     .ref("/Users/" + userid + "/session")
-  //                     .set(session + 1);
-  //                   setSession(session + 1);
-  //                   firebase
-  //                     .database()
-  //                     .ref("/Users/" + userid + "/articleRead")
-  //                     .set(false);
-  //                   setArticleRead(false);
-  //                   firebase
-  //                     .database()
-  //                     .ref("/Users/" + userid + "/audioListen")
-  //                     .set(false);
-  //                   setArticleRead(false);
-  //                 } else {
-  //                   console.log("Wait 48 Hours");
-  //                 }
-  //               });
-  //           }
-  //         });
-  //     }
-  //   } else if (articleRead && !audioListened) {
-  //     setPercent(50);
-  //   } else if (!articleRead && audioListened) {
-  //     setPercent(50);
-  //   } else {
-  //     setPercent(0);
-  //   }
-  // }, [articleRead, audioListened]);
+  useEffect(() => {
+    if (articleRead && audioListened) {
+      if (session != 13) {
+        setPercent(100);
+        firebase
+          .database()
+          .ref("/Users/" + userid + "/Complete/Record")
+          .once("value", (snapshot) => {
+            const firebasedata = snapshot.val();
+            if (firebasedata == false) {
+              firebase
+                .database()
+                .ref("/Users/" + userid + "/Complete/Time")
+                .set(new Date().getTime());
+              firebase
+                .database()
+                .ref("/Users/" + userid + "/Complete/Record")
+                .set(true);
+            } else {
+              firebase
+                .database()
+                .ref("/Users/" + userid + "/Complete/Time")
+                .once("value", (snapshot) => {
+                  const firebasedataTime = snapshot.val();
+                  var currentTime = new Date();
+                  if (currentTime.getTime() - firebasedataTime >= 172800000) {
+                    if (session == 12) {
+                      firebase
+                        .database()
+                        .ref("/Users/" + userid + "/CompleteSessionsTime")
+                        .set(new Date().getTime());
+                    }
+                    firebase
+                      .database()
+                      .ref("/Users/" + userid + "/Complete/Record")
+                      .set(false);
+                    firebase
+                      .database()
+                      .ref("/Users/" + userid + "/session")
+                      .set(session + 1);
+                    setSession(session + 1);
+                    firebase
+                      .database()
+                      .ref("/Users/" + userid + "/articleRead")
+                      .set(false);
+                    setArticleRead(false);
+                    firebase
+                      .database()
+                      .ref("/Users/" + userid + "/audioListen")
+                      .set(false);
+                    setArticleRead(false);
+                  } else {
+                    console.log("Wait 48 Hours");
+                  }
+                });
+            }
+          });
+      }
+    } else if (articleRead && !audioListened) {
+      setPercent(50);
+    } else if (!articleRead && audioListened) {
+      setPercent(50);
+    } else {
+      setPercent(0);
+    }
+  }, [articleRead, audioListened]);
 
   const showTimePicker = () => {
     setTempTime();
@@ -316,17 +336,42 @@ const mainMenuPage = ({ navigation }) => {
 
   useEffect(() => {
     if (session == 6 && articleRead && audioListened && !firstSurvey) {
-      setFirstSurvey(true);
+      firebase
+        .database()
+        .ref("/Users/" + userid + "/FirstSurvey/")
+        .set(true);
       setSurvey(true);
     }
 
     if (session == 12 && articleRead && audioListened && !secondSurvey) {
-      setSecondSurvey(true);
+      firebase
+        .database()
+        .ref("/Users/" + userid + "/SecondSurvey/")
+        .set(true);
       setSurvey(true);
     }
 
-    //after 1 month after 12th session, survey again
+    if (secondSurvey) {
+      firebase
+        .database()
+        .ref("/Users/" + userid + "/CompleteSessionsTime/")
+        .once("value", (snapshot) => {
+          const firebasedataTime = snapshot.val();
+          var currentTime = new Date();
+          if (
+            currentTime.getTime() - firebasedataTime >= 2592000000 &&
+            !thirdSurvey
+          ) {
+            firebase
+              .database()
+              .ref("/Users/" + userid + "/ThirdSurvey/")
+              .set(true);
+            setSurvey(true);
+          }
+        });
+    }
   });
+
   const DrawerContent = () => {
     return (
       <View style={{ flex: 1, backgroundColor: "#FFFFFF" }}>
@@ -2439,11 +2484,11 @@ const mainMenuPage = ({ navigation }) => {
                   <TouchableOpacity
                     style={[styles.buttonStyle, { backgroundColor: "#34433C" }]}
                     onPress={() => {
-                      // firebase
-                      //   .database()
-                      //   .ref("/Users/" + userid + "/articleRead/")
-                      //   .set(true);
-                      // setArticleRead(true);
+                      firebase
+                        .database()
+                        .ref("/Users/" + userid + "/articleRead/")
+                        .set(true);
+                      setArticleRead(true);
                       session == 13
                         ? navigation.navigate("articlePage", { Session: 12 })
                         : navigation.navigate("articlePage", {
@@ -2452,23 +2497,68 @@ const mainMenuPage = ({ navigation }) => {
                     }}
                   >
                     <Text style={[styles.buttonText, { color: "white" }]}>
-                      1. {session == 1 ? "Apakah itu PERuT" : null}
-                      {session == 2 ? "Kembung Perut" : null}
-                      {session == 3 ? "Punca-punca perut kembung (1)" : null}
-                      {session == 4 ? "Punca-punca perut kembung (2)" : null}
+                      1.{" "}
+                      {session == 1
+                        ? articleRead
+                          ? "Apakah itu PERuT (done)"
+                          : "Apakah itu PERuT"
+                        : null}
+                      {session == 2
+                        ? articleRead
+                          ? "Kembung Perut (done)"
+                          : "Kembung Perut"
+                        : null}
+                      {session == 3
+                        ? articleRead
+                          ? "Punca-punca perut kembung (1) (done)"
+                          : "Punca-punca perut kembung (1)"
+                        : null}
+                      {session == 4
+                        ? articleRead
+                          ? "Punca-punca perut kembung (2) (done)"
+                          : "Punca-punca perut kembung (2)"
+                        : null}
                       {session == 5
-                        ? "Kenali Sistem Penghadaman anda (1)"
+                        ? articleRead
+                          ? "Kenali Sistem Penghadaman anda (1) (done)"
+                          : "Kenali Sistem Penghadaman anda (1)"
                         : null}
                       {session == 6
-                        ? "Kenali Sistem Penghadaman anda (2)"
+                        ? articleRead
+                          ? "Kenali Sistem Penghadaman anda (2) (done)"
+                          : "Kenali Sistem Penghadaman anda (2)"
                         : null}
-                      {session == 7 ? "Penyakit Sistem Penghadaman (1)" : null}
-                      {session == 8 ? "Penyakit Sistem Penghadaman (2)" : null}
-                      {session == 9 ? "Paksi Usus & Otak" : null}
-                      {session == 10 ? "Rawatan (1)" : null}
-                      {session == 11 ? "Rawatan (2)" : null}
-                      {session == 12 ? "Rawatan (3)" : null}
-                      {session == 13 ? "Rawatan (3)" : null}
+                      {session == 7
+                        ? articleRead
+                          ? "Penyakit Sistem Penghadaman (1) (done)"
+                          : "Penyakit Sistem Penghadaman (1)"
+                        : null}
+                      {session == 8
+                        ? articleRead
+                          ? "Penyakit Sistem Penghadaman (2)"
+                          : "Penyakit Sistem Penghadaman (2)"
+                        : null}
+                      {session == 9
+                        ? articleRead
+                          ? "Paksi Usus & Otak (done)"
+                          : "Paksi Usus & Otak"
+                        : null}
+                      {session == 10
+                        ? articleRead
+                          ? "Rawatan (1) (done)"
+                          : "Rawatan (1)"
+                        : null}
+                      {session == 11
+                        ? articleRead
+                          ? "Rawatan (2) (done)"
+                          : "Rawatan (2)"
+                        : null}
+                      {session == 12
+                        ? articleRead
+                          ? "Rawatan (3) (done)"
+                          : "Rawatan (3)"
+                        : null}
+                      {session == 13 ? "Rawatan (3) (done)" : null}
                     </Text>
                   </TouchableOpacity>
                 </View>
@@ -2490,7 +2580,11 @@ const mainMenuPage = ({ navigation }) => {
                     }}
                   >
                     <Text style={[styles.buttonText, { color: "white" }]}>
-                      2. Audio Kembung Perut
+                      {session == 13
+                        ? "2. Audio Kembung Perut (done)"
+                        : audioListened
+                        ? "2. Audio Kembung Perut (done)"
+                        : "2. Audio Kembung Perut"}
                     </Text>
                   </TouchableOpacity>
                 </View>

@@ -36,7 +36,7 @@ const articlePage = ({ navigation, route }) => {
                     source={require("../assets/slide6.png")}
                     style={{
                       width: Dimensions.get("window").height,
-                      height: Dimensions.get("window").height * 1.311,
+                      height: Dimensions.get("window").height * 1.381,
                     }}
                   />
                 </View>
@@ -48,14 +48,14 @@ const articlePage = ({ navigation, route }) => {
                     source={require("../assets/slide8.png")}
                     style={{
                       width: Dimensions.get("window").height,
-                      height: Dimensions.get("window").height * 1.318,
+                      height: Dimensions.get("window").height * 1.232,
                     }}
                   />
                   <Image
                     source={require("../assets/slide9.png")}
                     style={{
                       width: Dimensions.get("window").height,
-                      height: Dimensions.get("window").height * 1.325,
+                      height: Dimensions.get("window").height * 1.364,
                     }}
                   />
                 </View>
@@ -67,14 +67,14 @@ const articlePage = ({ navigation, route }) => {
                     source={require("../assets/slide11.png")}
                     style={{
                       width: Dimensions.get("window").height,
-                      height: Dimensions.get("window").height * 1.31,
+                      height: Dimensions.get("window").height * 1.297,
                     }}
                   />
                   <Image
                     source={require("../assets/slide12.png")}
                     style={{
                       width: Dimensions.get("window").height,
-                      height: Dimensions.get("window").height * 1.319,
+                      height: Dimensions.get("window").height * 1.335,
                     }}
                   />
                 </View>
@@ -86,21 +86,21 @@ const articlePage = ({ navigation, route }) => {
                     source={require("../assets/slide13.png")}
                     style={{
                       width: Dimensions.get("window").height,
-                      height: Dimensions.get("window").height * 1.292,
+                      height: Dimensions.get("window").height * 1.331,
                     }}
                   />
                   <Image
                     source={require("../assets/slide14.png")}
                     style={{
                       width: Dimensions.get("window").height,
-                      height: Dimensions.get("window").height * 1.293,
+                      height: Dimensions.get("window").height * 1.289,
                     }}
                   />
                   <Image
                     source={require("../assets/slide15.png")}
                     style={{
                       width: Dimensions.get("window").height,
-                      height: Dimensions.get("window").height * 1.333,
+                      height: Dimensions.get("window").height * 1.321,
                     }}
                   />
                 </View>
@@ -111,21 +111,21 @@ const articlePage = ({ navigation, route }) => {
                     source={require("../assets/slide17.png")}
                     style={{
                       width: Dimensions.get("window").height,
-                      height: Dimensions.get("window").height * 1.316,
+                      height: Dimensions.get("window").height * 1.343,
                     }}
                   />
                   <Image
                     source={require("../assets/slide18.png")}
                     style={{
                       width: Dimensions.get("window").height,
-                      height: Dimensions.get("window").height * 1.223,
+                      height: Dimensions.get("window").height * 1.191,
                     }}
                   />
                   <Image
                     source={require("../assets/slide19.png")}
                     style={{
                       width: Dimensions.get("window").height,
-                      height: Dimensions.get("window").height * 1.385,
+                      height: Dimensions.get("window").height * 1.292,
                     }}
                   />
                 </View>
@@ -136,21 +136,21 @@ const articlePage = ({ navigation, route }) => {
                     source={require("../assets/slide20.png")}
                     style={{
                       width: Dimensions.get("window").height,
-                      height: Dimensions.get("window").height * 1.369,
+                      height: Dimensions.get("window").height * 1.329,
                     }}
                   />
                   <Image
                     source={require("../assets/slide21.png")}
                     style={{
                       width: Dimensions.get("window").height,
-                      height: Dimensions.get("window").height * 1.331,
+                      height: Dimensions.get("window").height * 1.257,
                     }}
                   />
                   <Image
                     source={require("../assets/slide22.png")}
                     style={{
                       width: Dimensions.get("window").height,
-                      height: Dimensions.get("window").height * 1.35,
+                      height: Dimensions.get("window").height * 1.326,
                     }}
                   />
                 </View>
@@ -161,21 +161,21 @@ const articlePage = ({ navigation, route }) => {
                     source={require("../assets/slide24.png")}
                     style={{
                       width: Dimensions.get("window").height,
-                      height: Dimensions.get("window").height * 1.373,
+                      height: Dimensions.get("window").height * 1.328,
                     }}
                   />
                   <Image
                     source={require("../assets/slide25.png")}
                     style={{
                       width: Dimensions.get("window").height,
-                      height: Dimensions.get("window").height * 1.344,
+                      height: Dimensions.get("window").height * 1.242,
                     }}
                   />
                   <Image
                     source={require("../assets/slide26.png")}
                     style={{
                       width: Dimensions.get("window").height,
-                      height: Dimensions.get("window").height * 1.324,
+                      height: Dimensions.get("window").height * 1.225,
                     }}
                   />
                 </View>
@@ -186,21 +186,21 @@ const articlePage = ({ navigation, route }) => {
                     source={require("../assets/slide27.png")}
                     style={{
                       width: Dimensions.get("window").height,
-                      height: Dimensions.get("window").height * 1.345,
+                      height: Dimensions.get("window").height * 1.242,
                     }}
                   />
                   <Image
                     source={require("../assets/slide28.png")}
                     style={{
                       width: Dimensions.get("window").height,
-                      height: Dimensions.get("window").height * 1.368,
+                      height: Dimensions.get("window").height * 1.264,
                     }}
                   />
                   <Image
                     source={require("../assets/slide29.png")}
                     style={{
                       width: Dimensions.get("window").height,
-                      height: Dimensions.get("window").height * 1.389,
+                      height: Dimensions.get("window").height * 1.213,
                     }}
                   />
                 </View>
@@ -218,7 +218,7 @@ const articlePage = ({ navigation, route }) => {
                     source={require("../assets/slide32.png")}
                     style={{
                       width: Dimensions.get("window").height,
-                      height: Dimensions.get("window").height * 1.372,
+                      height: Dimensions.get("window").height * 1.26,
                     }}
                   />
                 </View>
@@ -229,28 +229,28 @@ const articlePage = ({ navigation, route }) => {
                     source={require("../assets/slide34.png")}
                     style={{
                       width: Dimensions.get("window").height,
-                      height: Dimensions.get("window").height * 1.421,
+                      height: Dimensions.get("window").height * 1.257,
                     }}
                   />
                   <Image
                     source={require("../assets/slide35.png")}
                     style={{
                       width: Dimensions.get("window").height,
-                      height: Dimensions.get("window").height * 1.322,
+                      height: Dimensions.get("window").height * 1.335,
                     }}
                   />
                   <Image
                     source={require("../assets/slide36.png")}
                     style={{
                       width: Dimensions.get("window").height,
-                      height: Dimensions.get("window").height * 1.383,
+                      height: Dimensions.get("window").height * 1.332,
                     }}
                   />
                   <Image
                     source={require("../assets/slide37.png")}
                     style={{
                       width: Dimensions.get("window").height,
-                      height: Dimensions.get("window").height * 1.343,
+                      height: Dimensions.get("window").height * 1.304,
                     }}
                   />
                 </View>
@@ -261,21 +261,21 @@ const articlePage = ({ navigation, route }) => {
                     source={require("../assets/slide38.png")}
                     style={{
                       width: Dimensions.get("window").height,
-                      height: Dimensions.get("window").height * 1.375,
+                      height: Dimensions.get("window").height * 1.345,
                     }}
                   />
                   <Image
                     source={require("../assets/slide39.png")}
                     style={{
                       width: Dimensions.get("window").height,
-                      height: Dimensions.get("window").height * 1.276,
+                      height: Dimensions.get("window").height * 1.312,
                     }}
                   />
                   <Image
                     source={require("../assets/slide40.png")}
                     style={{
                       width: Dimensions.get("window").height,
-                      height: Dimensions.get("window").height * 1.296,
+                      height: Dimensions.get("window").height * 1.334,
                     }}
                   />
                 </View>
@@ -286,49 +286,49 @@ const articlePage = ({ navigation, route }) => {
                     source={require("../assets/slide41.png")}
                     style={{
                       width: Dimensions.get("window").height,
-                      height: Dimensions.get("window").height * 1.462,
+                      height: Dimensions.get("window").height * 1.333,
                     }}
                   />
                   <Image
                     source={require("../assets/slide42.png")}
                     style={{
                       width: Dimensions.get("window").height,
-                      height: Dimensions.get("window").height * 1.207,
+                      height: Dimensions.get("window").height * 1.276,
                     }}
                   />
                   <Image
                     source={require("../assets/slide43.png")}
                     style={{
                       width: Dimensions.get("window").height,
-                      height: Dimensions.get("window").height * 1.327,
+                      height: Dimensions.get("window").height * 1.282,
                     }}
                   />
                   <Image
                     source={require("../assets/slide44.png")}
                     style={{
                       width: Dimensions.get("window").height,
-                      height: Dimensions.get("window").height * 1.289,
+                      height: Dimensions.get("window").height * 1.391,
                     }}
                   />
                   <Image
                     source={require("../assets/slide45.png")}
                     style={{
                       width: Dimensions.get("window").height,
-                      height: Dimensions.get("window").height * 1.339,
+                      height: Dimensions.get("window").height * 1.301,
                     }}
                   />
                   <Image
                     source={require("../assets/slide46.png")}
                     style={{
                       width: Dimensions.get("window").height,
-                      height: Dimensions.get("window").height * 1.429,
+                      height: Dimensions.get("window").height * 1.417,
                     }}
                   />
                   <Image
                     source={require("../assets/slide47.png")}
                     style={{
                       width: Dimensions.get("window").height,
-                      height: Dimensions.get("window").height * 1.352,
+                      height: Dimensions.get("window").height * 1.33,
                     }}
                   />
                 </View>
