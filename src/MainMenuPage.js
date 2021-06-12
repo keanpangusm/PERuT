@@ -20,6 +20,15 @@ import MenuDrawer from "react-native-side-drawer";
 import { Picker } from "@react-native-picker/picker";
 import { Input } from "react-native-elements";
 import { firebase } from "./firebase/config";
+import * as Notifications from 'expo-notifications';
+
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: false,
+    shouldSetBadge: false,
+  }),
+});
 
 const mainMenuPage = ({ navigation }) => {
   const [drawer, setDrawer] = useState(false);
@@ -55,6 +64,17 @@ const mainMenuPage = ({ navigation }) => {
 
   const [videoId, setVideoID] = useState(1);
   const userid = firebase.auth().currentUser.uid;
+
+  async function schedulePushNotification(text) {
+    await Notifications.scheduleNotificationAsync({
+      content: {
+        title: "You've got message! 📬",
+        body: text,
+        data: { data: 'goes here' },
+      },
+      trigger: { seconds: 1 },
+    });
+  }
 
   const uploadReminder = () => {
     var h = parseInt(tempHour);
@@ -216,7 +236,58 @@ const mainMenuPage = ({ navigation }) => {
                       .database()
                       .ref("/Users/" + userid + "/session")
                       .set(session + 1);
+                    var tempTitle="";
+                    var tempText="";
+                    switch(session+1){
+                      case 2:
+                        tempTitle="2nd session";
+                        tempText="Perjalanan beribu batu, bermula dari langkah pertama. Mulakan hari anda dengan PERuT!";
+                        break;
+                      case 3:
+                        tempTitle="3rd session";
+                        tempText="Ingat! Jangan lupa temu janji anda di PERuT! Adakah anda terlepas dengan sesi lepas?";
+                        break;
+                      case 4:
+                        tempTitle="4th session";
+                        tempText="Tarik nafas dalam dalam…dan releks. Jom kurangkan gejala perut kembung anda dengan PERuT!";
+                        break;
+                      case 5:
+                        tempTitle="5th session";
+                        tempText="Adakah gejala anda berkurangan? Jika tidak, jangan risau. Relek dan hubungi penyelidik kami melalui PERuT!";
+                        break;
+                      case 6:
+                        tempTitle="6th session";
+                        tempText="Tahniah! Anda telah menghabiskan 50% sesi PERuT. Catatkan kemajuan anda di PERuT!";
+                        break;
+                      case 7:
+                        tempTitle="7th session";
+                        tempText="Adakah anda kenali badan sendiri? Jangan risau, kami dari PERuT akan menjelaskan punca berlakunya gejala kembung hari ini!";
+                        break;
+                      case 8:
+                        tempTitle="8th session";
+                        tempText="Fahami badan anda melalui bahan bacaan dari PERuT! #PERuT";
+                        break;
+                      case 9:
+                        tempTitle="9th session";
+                        tempText="Cara rawatan tanpa makan ubat? Baca dengan lebih lanjut dalam PERuT!";
+                        break;
+                      case 10:
+                        tempTitle="10th session";
+                        tempText="Rawatan tanpa ubatan? Eh biar betul?! Baca dengan lebih lanjut dalam PERuT!";
+                        break;
+                      case 11:
+                        tempTitle="11th session";
+                        tempText="Terima kasih kerana sudi menggunakan PERuT. Kami dari PERuT ingin mengucapkan penghargaan saya tertinggi.";
+                        break;
+                      case 12:
+                        tempTitle="12th session";
+                        tempText="Tunggu apa lagi? Hubungi penyelidik kami untuk sesi terakhir! (Sharekan kejayaan anda)";
+                        break;
+                    }
+                    schedulePushNotification(tempTitle,tempText);
                     setSession(session + 1);
+
+
                     firebase
                       .database()
                       .ref("/Users/" + userid + "/articleRead")
