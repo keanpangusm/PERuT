@@ -65,10 +65,10 @@ const mainMenuPage = ({ navigation }) => {
   const [videoId, setVideoID] = useState(1);
   const userid = firebase.auth().currentUser.uid;
 
-  async function schedulePushNotification(text) {
+  async function schedulePushNotification(title,text) {
     await Notifications.scheduleNotificationAsync({
       content: {
-        title: "You've got message! 📬",
+        title: title,
         body: text,
         data: { data: 'goes here' },
       },
