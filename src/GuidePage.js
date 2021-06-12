@@ -10,6 +10,7 @@ import {
   ScrollView,
   ImageBackground,
   Dimensions,
+  Image,
 } from "react-native";
 
 const guidePage = ({ navigation }) => {
@@ -29,14 +30,34 @@ const guidePage = ({ navigation }) => {
                 Perkara yang anda perlu lakukan
               </Text>
               <View style={[styles.viewContainer, { marginTop: 10 }]}>
-                <Text style={styles.viewTitle}>1. Dengar dan ikuti</Text>
+                <View style={{ alignItems: "center" }}>
+                  <Image
+                    source={require("../assets/dengar.png")}
+                    style={{
+                      width: 100,
+                      height: 100,
+                      marginTop: 10,
+                      marginBottom: 10,
+                    }}
+                  />
+                </View>
                 <Text style={styles.viewText}>
                   Anda perlu dengar and ikuti arahan yang diberi dalam audio
                   yang bertujuan untuk mengurangkan gejala perut kembung anda.
                 </Text>
               </View>
               <View style={styles.viewContainer}>
-                <Text style={styles.viewTitle}>2. Isi dan rekod</Text>
+                <View style={{ alignItems: "center" }}>
+                  <Image
+                    source={require("../assets/rekod.png")}
+                    style={{
+                      width: 100,
+                      height: 100,
+                      marginTop: 10,
+                      marginBottom: 10,
+                    }}
+                  />
+                </View>
                 <Text style={styles.viewText}>
                   Anda perlu mengisi borang soal selidik untuk mencatat
                   keberkesanan terapi tersebut. Soal selidik perlu diisi sebelum
@@ -45,7 +66,17 @@ const guidePage = ({ navigation }) => {
                 </Text>
               </View>
               <View style={styles.viewContainer}>
-                <Text style={styles.viewTitle}>3. Baca dan memahami</Text>
+                <View style={{ alignItems: "center" }}>
+                  <Image
+                    source={require("../assets/baca.png")}
+                    style={{
+                      width: 100,
+                      height: 100,
+                      marginTop: 10,
+                      marginBottom: 10,
+                    }}
+                  />
+                </View>
                 <Text style={styles.viewText}>
                   Bahan rujukan, artikel serta informasi mengenai perut kembung
                   akan dilampirkan pada applikasi ini. Anda diminta untuk
