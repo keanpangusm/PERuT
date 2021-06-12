@@ -29,7 +29,7 @@ const audioPage = ({ navigation, route }) => {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <StatusBar />
-      <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1 }}>
+      <View showsVerticalScrollIndicator={false} style={{ flex: 1 }}>
         <ImageBackground
           source={require("../assets/background.png")}
           style={styles.background}
@@ -142,7 +142,7 @@ const audioPage = ({ navigation, route }) => {
             </View>
           </ScrollView>
         </ImageBackground>
-      </ScrollView>
+      </View>
     </SafeAreaView>
   );
 };

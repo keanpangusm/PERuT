@@ -102,7 +102,7 @@ const secondQuestionPage = ({ navigation }) => {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <StatusBar />
-      <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1 }}>
+      <View showsVerticalScrollIndicator={false} style={{ flex: 1 }}>
         <ImageBackground
           source={require("../assets/background.png")}
           style={styles.background}
@@ -2302,7 +2302,7 @@ const secondQuestionPage = ({ navigation }) => {
             </View>
           </ScrollView>
         </ImageBackground>
-      </ScrollView>
+      </View>
     </SafeAreaView>
   );
 };

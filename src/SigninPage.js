@@ -69,7 +69,7 @@ const signInPage = ({ navigation }) => {
           </View>
         </Modal>
       ) : null}
-      <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
+      <View style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
         <ImageBackground
           source={require("../assets/background.png")}
           style={styles.background}
@@ -128,7 +128,7 @@ const signInPage = ({ navigation }) => {
             </View>
           </ScrollView>
         </ImageBackground>
-      </ScrollView>
+      </View>
     </SafeAreaView>
   );
 };

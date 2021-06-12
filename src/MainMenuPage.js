@@ -254,7 +254,7 @@ const mainMenuPage = ({ navigation }) => {
         overlay={true}
         opacity={1}
       >
-        <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1 }}>
+        <View showsVerticalScrollIndicator={false} style={{ flex: 1 }}>
           <ImageBackground
             source={require("../assets/background.png")}
             style={styles.background}
@@ -2089,7 +2089,7 @@ const mainMenuPage = ({ navigation }) => {
               </View>
             </ScrollView>
           </ImageBackground>
-        </ScrollView>
+        </View>
       </MenuDrawer>
     </SafeAreaView>
   );
